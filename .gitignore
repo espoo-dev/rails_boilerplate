@@ -1,0 +1,4 @@
+/config/gems/*
+!/config/gems/.keep
+/config/bundle/*
+!/config/bundle/.keep
