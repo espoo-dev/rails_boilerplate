@@ -1,2 +1,4 @@
 node_modules
 tmp
+log
+log/development.log
