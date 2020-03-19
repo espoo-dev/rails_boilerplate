@@ -23,7 +23,7 @@ services:
       - ./config/bundle:/home/edimossilva/.bundle
       - ./config/bash/.bashrc:/home/edimossilva/.bashrc
       - ./config/bash/.bashhistory:/home/edimossilva/.bashhistory
-    working_dir: /home/edimossilva/development/volume/blog-backend
+    working_dir: /home/edimossilva/development/volume/task-manager
     depends_on:
       - db
     environment:
