@@ -1,0 +1,20 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  database: boiler_plate_database
+  pool: 5
+  username: postgres
+  password: postgres
+  host: db
+
+development:
+  <<: *default
+  database: db/development
+
+test:
+  <<: *default
+  database: db/test
+
+production:
+  <<: *default
+  database: db/production

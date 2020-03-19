@@ -1,0 +1,43 @@
+version: '3'
+services:
+  db:
+    image: postgres
+    container_name: db
+    volumes:
+      - ./config/postgres-data:/var/lib/postgresql/data
+
+    environment:
+      POSTGRES_PASSWORD: "postgres"
+      POSTGRES_HOST_AUTH_METHOD: "trust"
+    ports:
+      - "5432:5432"
+
+  rails:
+    build:
+      context: "."
+      dockerfile: "Dockerfile_rails"
+    container_name: rails
+    volumes:
+      - ./volume:/home/edimossilva/development/volume
+      - ./config/gems:/home/edimossilva/.gems
+      - ./config/bundle:/home/edimossilva/.bundle
+      - ./config/bash/.bashrc:/home/edimossilva/.bashrc
+      - ./config/bash/.bashhistory:/home/edimossilva/.bashhistory
+    working_dir: /home/edimossilva/development/volume/blog-backend
+    depends_on:
+      - db
+    environment:
+      RUBYOPT: "-W:no-deprecated -W:no-experimental"
+      BUNDLE_PATH: "/home/edimossilva/.gems"
+      HISTFILE: /home/edimossilva/.bashhistory
+      RAILS_MASTER_KEY: "a667717bf0a47475b0582547379c816d"
+        # "${RAILS_MASTER_KEY}"
+    tty: true
+    command: bash
+    ports:
+      - "3000:3000"
+
+# docker-compose build
+# docker-compose up -d
+# docker exec -it rails bash
+# railss

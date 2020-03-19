@@ -1,0 +1,6 @@
+/config/gems/*
+!/config/gems/.keep
+/config/bundle/*
+!/config/bundle/.keep
+/config/bash/.bashhistory
+/config/postgres-data
