@@ -1,8 +1,8 @@
 version: '3'
 services:
-  db:
+  db_pg:
     image: postgres
-    container_name: db
+    container_name: db_pg
     volumes:
       - ./config/postgres-data:/var/lib/postgresql/data
 
@@ -12,28 +12,20 @@ services:
     ports:
       - "5432:5432"
 
-  rails:
+  rails_server:
     build:
       context: "."
       dockerfile: "Dockerfile_rails"
-    container_name: rails
+    container_name: rails_server
     volumes:
-      - ./volume:/home/edimossilva/development/volume
-      - ./config/gems:/home/edimossilva/.gems
-      - ./config/bundle:/home/edimossilva/.bundle
-      - ./config/bash/.bashrc:/home/edimossilva/.bashrc
-      - ./config/bash/.bashhistory:/home/edimossilva/.bashhistory
-    working_dir: /home/edimossilva/development/volume/task-manager
+      - ./volume/tasks-manager:/app
     depends_on:
-      - db
+      - db_pg
     environment:
       RUBYOPT: "-W:no-deprecated -W:no-experimental"
-      BUNDLE_PATH: "/home/edimossilva/.gems"
-      HISTFILE: /home/edimossilva/.bashhistory
       RAILS_MASTER_KEY: "a667717bf0a47475b0582547379c816d"
-        # "${RAILS_MASTER_KEY}"
     tty: true
-    command: bash
+    command: rails server -b 0
     ports:
       - "3000:3000"
 
