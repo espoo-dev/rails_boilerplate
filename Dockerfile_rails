@@ -1,4 +1,4 @@
-FROM ruby:2.7
+FROM ruby:2.7.1
 
 # update apt cache and install dependencies
 RUN apt-get update && apt-get install git curl build-essential libssl-dev libreadline-dev zlib1g-dev sqlite3 libsqlite3-dev -y
@@ -22,7 +22,7 @@ RUN apt-get update && apt-get install yarn -y
 RUN gem install bundler
 # install rails
 RUN gem install rails -v 6.0.0
-RUN apt-get update 
+RUN apt-get update
 # solve rails problem with timezone
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata
 
