@@ -18,20 +18,20 @@ services:
       dockerfile: "Dockerfile_rails"
     container_name: rails_server
     volumes:
-      - ./volume/tasks-manager:/app
+      - ./:/app
     depends_on:
       - db_pg
     environment:
       RUBYOPT: "-W:no-deprecated -W:no-experimental"
       RAILS_MASTER_KEY: "a667717bf0a47475b0582547379c816d"
     tty: true
-    command: rails server -b 0
+    command: rails s -b 0
     ports:
-      - "3333:3000"
+      - "3000:3000"
 
 volumes:
   db_pg_volume:
 # docker-compose build
 # docker-compose up -d
-# docker exec -it rails bash
-# railss
+# docker-compose exec rails_server rake db:create db:migrate db:seed
+# docker-compose exec rails_server rspec
