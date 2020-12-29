@@ -32,7 +32,9 @@ module BlogBackend
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
-
+    config.generators do |g|
+      g.test_framework :rspec, fixture: false
+    end
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
   end
 end
