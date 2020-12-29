@@ -1,3 +1,14 @@
+# coverage
+require 'simplecov'
+SimpleCov.start do
+  add_filter 'spec'
+  add_filter 'config'
+  add_filter 'db'
+  add_group 'Controllers', '/app/controllers'
+  add_group 'Models', '/app/models'
+  add_group 'Helpers', '/app/helpers'
+  track_files "/app/**/*.rb"
+end
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'spec_helper'
 ENV['RAILS_ENV'] ||= 'test'
@@ -11,9 +22,6 @@ require 'support/factory_bot'
 require 'support/json_response_helper'
 require 'faker'
 
-# coverage
-require 'simplecov'
-SimpleCov.start
 
 include Auth::JsonWebTokenHelper
 include JsonResponseHelper
