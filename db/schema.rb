@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 2020_03_03_095909) do
     t.integer "access_level"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["username"], name: "index_users_on_username", unique: true
   end
 
 end

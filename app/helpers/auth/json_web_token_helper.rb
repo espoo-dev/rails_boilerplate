@@ -1,3 +1,4 @@
+# rubocop:disable Rails/HelperInstanceVariable
 module Auth
   module JsonWebTokenHelper
     SECRET_KEY = Rails.application.credentials.jwt[:secret_key]
@@ -53,3 +54,4 @@ module Auth
     end
   end
 end
+# rubocop:enable Rails/HelperInstanceVariable
