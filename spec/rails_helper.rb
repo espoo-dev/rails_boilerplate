@@ -7,7 +7,7 @@ SimpleCov.start do
   add_group 'Controllers', '/app/controllers'
   add_group 'Models', '/app/models'
   add_group 'Helpers', '/app/helpers'
-  track_files "/app/**/*.rb"
+  track_files '/app/**/*.rb'
 end
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'spec_helper'
@@ -21,7 +21,6 @@ require 'rspec/rails'
 require 'support/factory_bot'
 require 'support/json_response_helper'
 require 'faker'
-
 
 include Auth::JsonWebTokenHelper
 include JsonResponseHelper
