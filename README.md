@@ -1,9 +1,24 @@
-# install
+# README
 
-docker-compose build
+This README would normally document whatever steps are necessary to get the
+application up and running.
 
-docker-compose up -d
+Things you may want to cover:
 
-docker-compose exec rails_server rake db:create db:migrate db:seed
+* Ruby version
 
-docker-compose exec rails_server rspec
+* System dependencies
+
+* Configuration
+
+* Database creation
+
+* Database initialization
+
+* How to run the test suite
+
+* Services (job queues, cache servers, search engines, etc.)
+
+* Deployment instructions
+
+* ...
