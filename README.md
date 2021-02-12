@@ -11,3 +11,5 @@
 1. [pry](https://github.com/pry/pry)
 
 1. [rspec](https://github.com/rspec/rspec-rails)
+
+1. [shoulda-matchers](https://github.com/thoughtbot/shoulda-matchers)
