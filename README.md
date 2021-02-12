@@ -13,3 +13,5 @@
 1. [rspec](https://github.com/rspec/rspec-rails)
 
 1. [shoulda-matchers](https://github.com/thoughtbot/shoulda-matchers)
+
+1. [devise](https://github.com/heartcombo/devise)
