@@ -25,6 +25,7 @@ gem 'bootsnap', '>= 1.4.4', require: false
 
 group :test do
   gem 'shoulda-matchers', '~> 4.0'
+  gem 'simplecov', require: false
 end
 
 group :development, :test do
@@ -54,3 +55,4 @@ gem 'rubocop-rails', require: false
 gem 'devise'
 
 gem "administrate"
+

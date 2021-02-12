@@ -1,5 +1,7 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'spec_helper'
+require_relative 'support/simplecov.rb'
+
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../config/environment', __dir__)
 # Prevent database truncation if the environment is production
@@ -64,3 +66,4 @@ RSpec.configure do |config|
 end
 
 require_relative 'support/shoulda_matchers.rb'
+require_relative 'support/factory_bot.rb'
