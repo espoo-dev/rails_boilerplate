@@ -9,3 +9,5 @@
 1. [rubocop](https://github.com/rubocop-hq/rubocop-rails)
 
 1. [pry](https://github.com/pry/pry)
+
+1. [rspec](https://github.com/rspec/rspec-rails)
