@@ -1,0 +1,40 @@
+version: "3"
+services:
+  boilerplate_db:
+    image: postgres
+    container_name: boilerplate_db
+    volumes:
+      - boilerplate_db_volume:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: 'postgres'
+      POSTGRES_HOST_AUTH_METHOD: 'trust'
+    ports:
+      - '5444:5432'
+
+  boilerplate_server:
+    build:
+      context: "."
+      dockerfile: "Dockerfile_rails"
+    container_name: boilerplate_server
+    volumes:
+      - ./:/app
+    depends_on:
+      - boilerplate_db
+    environment:
+      RAILS_MASTER_KEY: 'a667717bf0a47475b0582547379c816d'
+      DATABASE_USERNAME: 'postgres'
+      DATABASE_PASSWORD: 'postgres'
+      DATABASE_HOST: 'boilerplate_db'
+      DATABASE_PORT: '5432'
+      DATABASE_NAME: 'boilerplate_db_name'
+    tty: true
+    ports:
+      - "3000:3000"
+
+volumes:
+  boilerplate_db_volume:
+# docker-compose build
+# docker-compose up -d
+# docker-compose exec boilerplate_server rspec
+# docker build -f Dockerfile_rails . -t edimossilva/boilerplate_server
+# docker push edimossilva/boilerplate_server
