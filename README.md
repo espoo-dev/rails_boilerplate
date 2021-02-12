@@ -7,3 +7,5 @@
 1. docker (docker-compose)
 
 1. [rubocop](https://github.com/rubocop-hq/rubocop-rails)
+
+1. [pry](https://github.com/pry/pry)
