@@ -30,11 +30,9 @@ services:
     tty: true
     ports:
       - "3000:3000"
+    entrypoint: /app/scripts/configure_database.sh
 
 volumes:
   boilerplate_db_volume:
-# docker-compose build
 # docker-compose up -d
 # docker-compose exec boilerplate_server rspec
-# docker build -f Dockerfile_rails . -t edimossilva/boilerplate_server
-# docker push edimossilva/boilerplate_server
