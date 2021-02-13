@@ -1,9 +1,21 @@
-# install
+# README
 
-docker-compose build
+## Configured gems
 
-docker-compose up -d
+1. Rails 6
 
-docker-compose exec rails_server rake db:create db:migrate db:seed
+1. docker (docker-compose)
 
-docker-compose exec rails_server rspec
+1. [rubocop](https://github.com/rubocop-hq/rubocop-rails)
+
+1. [pry](https://github.com/pry/pry)
+
+1. [rspec](https://github.com/rspec/rspec-rails)
+
+1. [shoulda-matchers](https://github.com/thoughtbot/shoulda-matchers)
+
+1. [devise](https://github.com/heartcombo/devise)
+
+1. [administrate](https://github.com/thoughtbot/administrate)
+
+1. [simplecov](https://github.com/simplecov-ruby/simplecov)

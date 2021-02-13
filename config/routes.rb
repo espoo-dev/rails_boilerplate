@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  post '/auth/login', to: 'authentication#login'
+  namespace :admin do
+      resources :users
 
-  mount ActionCable.server => '/cable'
+      root to: "users#index"
+    end
+  devise_for :users
+  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
