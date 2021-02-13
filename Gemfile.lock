@@ -1,3 +1,11 @@
+GIT
+  remote: https://github.com/faker-ruby/faker.git
+  revision: 95302b6d4f627a8b5747a9817957e648eef110f5
+  branch: master
+  specs:
+    faker (2.16.0)
+      i18n (>= 1.6, < 2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -308,6 +316,7 @@ DEPENDENCIES
   devise-bootstrap-views (~> 1.0)
   devise-i18n
   factory_bot_rails
+  faker!
   jbuilder (~> 2.7)
   jquery-rails
   listen (~> 3.3)
