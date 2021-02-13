@@ -52,7 +52,11 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'rubocop-rails', require: false
 
-gem 'devise'
 
 gem "administrate"
 
+gem 'jquery-rails'
+gem 'bootstrap', '~> 5.0.0.beta1'
+gem 'devise'
+gem 'devise-i18n'
+gem 'devise-bootstrap-views', '~> 1.0'

@@ -17,3 +17,5 @@
 1. [devise](https://github.com/heartcombo/devise)
 
 1. [administrate](https://github.com/thoughtbot/administrate)
+
+1. [simplecov](https://github.com/simplecov-ruby/simplecov)
