@@ -34,6 +34,7 @@ group :development, :test do
   gem 'pry'
   gem 'rspec-rails', '~> 4.0.2'
   gem 'factory_bot_rails'
+  gem 'bullet'
 end
 
 group :development do
