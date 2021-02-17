@@ -61,3 +61,7 @@ gem 'bootstrap', '~> 5.0.0.beta1'
 gem 'devise'
 gem 'devise-i18n'
 gem 'devise-bootstrap-views', '~> 1.0'
+gem 'devise-jwt', '~> 0.7.0'
+gem 'rack-cors'
+
+gem 'active_model_serializers'

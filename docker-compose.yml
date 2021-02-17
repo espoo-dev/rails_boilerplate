@@ -27,6 +27,7 @@ services:
       DATABASE_HOST: 'boilerplate_db'
       DATABASE_PORT: '5432'
       DATABASE_NAME: 'boilerplate_db_name'
+      DEVISE_JWT_SECRET_KEY: 'e26a21cfca4fdf67cc4e82385ba2d6ea4fb83ad1f8f5'
     tty: true
     ports:
       - "3000:3000"
