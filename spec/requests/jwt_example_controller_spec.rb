@@ -1,6 +1,6 @@
 require 'devise/jwt/test_helpers'
 
-describe 'JWT Example' do
+describe JwtExampleController do
   let(:headers) do
     { 'Accept' => 'application/json' }
   end
@@ -27,20 +27,20 @@ describe 'JWT Example' do
         { user: { 'email' => user.email, 'password' => user.password } }
       end
 
-      before(:each) do
+      before do
         post '/users/sign_in', params: params, headers: headers
       end
 
       it { expect(response.status).to eq 200 }
 
-      it { expect(response.header["Authorization"]).to start_with("Bearer") }
+      it { expect(response.header['Authorization']).to start_with('Bearer') }
 
       it 'return user data' do
         body = JSON.parse response.body
         expect(body).to include(
-          "id" => user.id,
-          "email" => user.email,
-          "phone" => user.phone
+          'id' => user.id,
+          'email' => user.email,
+          'phone' => user.phone
         )
       end
     end

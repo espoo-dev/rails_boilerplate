@@ -30,8 +30,7 @@ end
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-  gem 'pry'
+  gem 'pry-rails'
   gem 'rspec-rails', '~> 4.0.2'
   gem 'factory_bot_rails'
   gem 'bullet'
@@ -53,6 +52,8 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'rubocop-rails', require: false
+gem 'rubocop-performance', require: false
+gem 'rubocop-rspec', require: false
 
 gem "administrate"
 

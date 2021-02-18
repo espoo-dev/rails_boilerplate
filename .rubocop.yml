@@ -1,4 +1,7 @@
-require: rubocop-rails
+require:
+  - rubocop-rails
+  - rubocop-performance
+  - rubocop-rspec
 
 AllCops:
   NewCops: enable
@@ -48,3 +51,6 @@ Style/FrozenStringLiteralComment:
 
 Style/TernaryParentheses:
   EnforcedStyle: require_parentheses_when_complex
+
+RSpec/ExampleLength:
+  Max: 10
