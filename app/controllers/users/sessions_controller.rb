@@ -36,6 +36,6 @@ class Users::SessionsController < Devise::SessionsController
   private
 
   def json_content_type_header?
-    request.headers['Accept'] == "application/json"
+    request.headers['Accept'] == 'application/json'
   end
 end

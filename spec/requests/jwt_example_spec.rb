@@ -33,14 +33,14 @@ describe 'JWT Example' do
 
       it { expect(response.status).to eq 200 }
 
-      it { expect(response.header["Authorization"]).to start_with("Bearer") }
+      it { expect(response.header['Authorization']).to start_with('Bearer') }
 
       it 'return user data' do
         body = JSON.parse response.body
         expect(body).to include(
-          "id" => user.id,
-          "email" => user.email,
-          "phone" => user.phone
+          'id' => user.id,
+          'email' => user.email,
+          'phone' => user.phone
         )
       end
     end
