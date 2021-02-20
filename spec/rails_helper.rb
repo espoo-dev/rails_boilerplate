@@ -67,3 +67,5 @@ end
 
 require_relative 'support/shoulda_matchers'
 require_relative 'support/factory_bot'
+require_relative 'support/capybara'
+
