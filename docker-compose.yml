@@ -20,6 +20,7 @@ services:
       - ./:/app
     depends_on:
       - boilerplate_db
+      - chrome
     environment:
       RAILS_MASTER_KEY: 'a667717bf0a47475b0582547379c816d'
       DATABASE_USERNAME: 'postgres'
@@ -28,10 +29,17 @@ services:
       DATABASE_PORT: '5432'
       DATABASE_NAME: 'boilerplate_db_name'
       DEVISE_JWT_SECRET_KEY: 'e26a21cfca4fdf67cc4e82385ba2d6ea4fb83ad1f8f5'
+      HUB_URL: http://chrome:4444/wd/hub
     tty: true
     ports:
       - "3000:3000"
     entrypoint: /app/scripts/configure_database.sh
+
+  chrome:
+    image: selenium/standalone-chrome:3.141.59-zirconium
+    container_name: boilerplate_chrome
+    volumes:
+      - /dev/shm:/dev/shm
 
 volumes:
   boilerplate_db_volume:

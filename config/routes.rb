@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   end
 
   get '/jwt_example', to: 'jwt_example#index'
+  get '/', to: 'admin/users#index'
 
   devise_for :users, controllers: {
     sessions: 'users/sessions'
