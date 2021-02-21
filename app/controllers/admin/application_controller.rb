@@ -6,12 +6,20 @@
 # you're free to overwrite the RESTful controller actions.
 module Admin
   class ApplicationController < Administrate::ApplicationController
-    before_action :authenticate_user!
+    include Pundit
+
+    before_action :authenticate_user!, :authenticate_admin
+    after_action :verify_authorized
+
+    rescue_from Pundit::NotAuthorizedError, with: :render_unauthorized
 
     def authenticate_admin
-      # TODO: Add authentication logic here.
+      authorize current_user
     end
 
+    def render_unauthorized
+      redirect_to '/401.html'
+    end
     # Override this value to specify the number of elements to display at a time
     # on index pages. Defaults to 20.
     # def records_per_page

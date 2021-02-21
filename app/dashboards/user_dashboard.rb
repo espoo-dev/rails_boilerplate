@@ -12,6 +12,7 @@ class UserDashboard < Administrate::BaseDashboard
     email: Field::String,
     password: Field::String,
     phone: Field::String,
+    role: Field::String,
     reset_password_token: Field::String,
     reset_password_sent_at: Field::DateTime,
     remember_created_at: Field::DateTime,
@@ -28,6 +29,7 @@ class UserDashboard < Administrate::BaseDashboard
     id
     email
     phone
+    role
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -36,6 +38,7 @@ class UserDashboard < Administrate::BaseDashboard
     id
     email
     phone
+    role
     created_at
     updated_at
   ].freeze
@@ -47,6 +50,7 @@ class UserDashboard < Administrate::BaseDashboard
     email
     password
     phone
+    role
   ].freeze
 
   # COLLECTION_FILTERS

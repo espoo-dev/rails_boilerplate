@@ -68,3 +68,5 @@ gem 'devise-jwt', '~> 0.7.0'
 gem 'rack-cors'
 
 gem 'active_model_serializers'
+
+gem "pundit"

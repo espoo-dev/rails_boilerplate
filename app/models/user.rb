@@ -8,4 +8,8 @@ class User < ApplicationRecord
   ROLES = %w[admin moderator].freeze
 
   validates :role, presence: true, inclusion: { in: ROLES }
+
+  def admin?
+    role == ROLES[0]
+  end
 end
