@@ -12,12 +12,16 @@
 
 1. [rspec](https://github.com/rspec/rspec-rails)
 
+1. [capybara](https://github.com/teamcapybara/capybara)
+
 1. [shoulda-matchers](https://github.com/thoughtbot/shoulda-matchers)
 
-1. [capybara](https://github.com/teamcapybara/capybara)
+1. [simplecov](https://github.com/simplecov-ruby/simplecov)
 
 1. [devise](https://github.com/heartcombo/devise)
 
+1. [pundit](https://github.com/varvet/pundit)
+
 1. [administrate](https://github.com/thoughtbot/administrate)
 
-1. [simplecov](https://github.com/simplecov-ruby/simplecov)
+
