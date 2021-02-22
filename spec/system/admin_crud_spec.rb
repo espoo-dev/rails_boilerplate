@@ -37,7 +37,7 @@ RSpec.describe 'Admin CRUD', type: :system do
       visit "/admin/users/#{user3.id}/edit"
 
       fill_in 'Password', with: user3.password
-      fill_in 'Phone', with: 123456789
+      fill_in 'Phone', with: 123_456_789
 
       click_on 'Update User'
 

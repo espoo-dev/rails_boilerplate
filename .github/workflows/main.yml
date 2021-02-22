@@ -1,0 +1,19 @@
+name: CI
+
+on: push
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: start server
+        run: docker-compose up -d
+
+      - name: lint
+        run: docker-compose exec -T boilerplate_server rubocop
+
+      - name: test
+        run: |
+          docker-compose exec -T boilerplate_server bundle exec rspec

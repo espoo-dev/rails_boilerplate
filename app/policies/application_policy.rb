@@ -6,9 +6,7 @@ class ApplicationPolicy
     @record = record
   end
 
-  def admin?
-    user.admin?
-  end
+  delegate :admin?, to: :user
 
   def index?
     admin?
