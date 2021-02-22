@@ -5,7 +5,7 @@ FactoryBot.define do
     role { User::ROLES[0] }
   end
 
-  factory :user_moderator, :parent => :user do
+  factory :user_moderator, parent: :user do
     role { User::ROLES[1] }
   end
 end

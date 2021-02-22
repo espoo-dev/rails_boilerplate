@@ -1,7 +1,7 @@
 version: "3"
 services:
   boilerplate_db:
-    image: postgres
+    image: postgres:alpine
     container_name: boilerplate_db
     volumes:
       - boilerplate_db_volume:/var/lib/postgresql/data
@@ -33,7 +33,7 @@ services:
     tty: true
     ports:
       - "3000:3000"
-    entrypoint: /app/scripts/configure_database.sh
+    entrypoint: /app/scripts/entrypoint.sh
 
   chrome:
     image: selenium/standalone-chrome:3.141.59-zirconium
