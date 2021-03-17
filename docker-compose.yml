@@ -14,7 +14,7 @@ services:
   boilerplate_server:
     build:
       context: "."
-      dockerfile: "Dockerfile_rails"
+      dockerfile: "dockerfile_rails"
     container_name: boilerplate_server
     volumes:
       - ./:/app
