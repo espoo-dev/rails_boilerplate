@@ -7,6 +7,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Cache multiple paths
+        uses: actions/cache@v2
+        with:
+          path: Dockerfile_rails.tar
+          key: Dockerfile_rails
 
       - name: docker load
         run: test -f Dockerfile_rails.tar && docker load < Dockerfile_rails.tar || true
