@@ -14,7 +14,7 @@ jobs:
           path: dockerfile_rails.tar
           key: dockerfile_rails_cache
 
-      - name: ls
+      - name: ls ls
         run: ls
 
       - name: docker load
