@@ -8,12 +8,17 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name:  touch
+        run: touch Dockerfile_rails.tar
+      - name: docker load
+        run: docker load < Dockerfile_rails.tar || 1
       - name: docker build
-        run: |
-          touch Dockerfile_rails.tar
-          docker load < Dockerfile_rails.tar || 1
-          docker build -f Dockerfile_rails . -t edimossilva/boilerplate
-          docker save Dockerfile_rails > Dockerfile_rails.tar
+        run: docker build -f Dockerfile_rails . -t edimossilva/boilerplate
+      - name: docker save
+        run: docker save Dockerfile_rails > Dockerfile_rails.tar
+
+
+
 
       - name: start server
         run: docker-compose up -d
