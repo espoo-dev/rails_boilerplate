@@ -12,6 +12,7 @@ services:
       - '5444:5432'
 
   boilerplate_server:
+    image: edimossilva/boilerplate
     build:
       context: "."
       dockerfile: "dockerfile_rails"
