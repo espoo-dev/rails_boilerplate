@@ -18,6 +18,8 @@ services:
     container_name: boilerplate_server
     volumes:
       - ./:/app
+      - /vendor/
+
     depends_on:
       - boilerplate_db
       - chrome

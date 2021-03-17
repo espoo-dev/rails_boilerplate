@@ -14,8 +14,7 @@ RUN gem install bundler
 # config home environment
 WORKDIR /app
 
-COPY ./Gemfile /app/Gemfile
-COPY ./Gemfile.lock /app/Gemfile.lock
+COPY Gemfile Gemfile.lock /app/
 
 RUN gem install bundler
 RUN bundle install
