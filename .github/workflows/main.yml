@@ -12,7 +12,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: dockerfile_rails.tar
-          key: dockerfile_rails_cache
+          key: dockerfile-${{ hashFiles('**/Gemfile.lock') }}
 
       - name: ls ls
         run: ls
@@ -21,7 +21,7 @@ jobs:
         run: test -f dockerfile_rails.tar && docker load < dockerfile_rails.tar || true
 
       - name: docker build
-        run: docker build -f dockerfile_rails . -t edimossilva/boilerplate
+        run: docker build -f dockerfile_rails . -t edimossilva/boilerplate --cache-from "edimossilva/boilerplate"
 
       - name: docker save
         run: docker save edimossilva/boilerplate > dockerfile_rails.tar
