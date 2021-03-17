@@ -8,6 +8,21 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Cache multiple paths
+        uses: actions/cache@v2
+        with:
+          path: dockerfile_rails.tar
+          key: dockerfile-${{ hashFiles('**/Gemfile.lock') }}
+
+      - name: docker load
+        run: test -f dockerfile_rails.tar && docker load < dockerfile_rails.tar || true
+
+      - name: docker build
+        run: docker build -f dockerfile_rails . -t edimossilva/boilerplate --cache-from "edimossilva/boilerplate"
+
+      - name: docker save
+        run: docker save edimossilva/boilerplate > dockerfile_rails.tar
+
       - name: start server
         run: docker-compose up -d
 
@@ -15,5 +30,4 @@ jobs:
         run: docker-compose exec -T boilerplate_server bundle exec rubocop
 
       - name: test
-        run: |
-          docker-compose exec -T boilerplate_server bundle exec rspec
+        run: docker-compose exec -T boilerplate_server bundle exec rspec
