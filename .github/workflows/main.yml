@@ -14,7 +14,7 @@ jobs:
           path: dockerfile_rails.tar
           key: dockerfile-${{ hashFiles('**/Gemfile.lock') }}
 
-      - name: ls ls
+      - name: ls
         run: ls
 
       - name: docker load
