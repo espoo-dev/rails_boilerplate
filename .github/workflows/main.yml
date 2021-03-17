@@ -12,7 +12,7 @@ jobs:
         run: docker-compose up -d
 
       - name: lint
-        run: docker-compose exec -T boilerplate_server rubocop
+        run: docker-compose exec -T boilerplate_server bundle exec rubocop
 
       - name: test
         run: |
