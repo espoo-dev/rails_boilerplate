@@ -7,21 +7,24 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+
       - name: Cache multiple paths
         uses: actions/cache@v2
         with:
           path: Dockerfile_rails.tar
           key: Dockerfile_rails
 
+      - name: ls
+        run: ls
+
       - name: docker load
         run: test -f Dockerfile_rails.tar && docker load < Dockerfile_rails.tar || true
+
       - name: docker build
         run: docker build -f Dockerfile_rails . -t edimossilva/boilerplate
+
       - name: docker save
         run: docker save Dockerfile_rails > Dockerfile_rails.tar
-
-
-
 
       - name: start server
         run: docker-compose up -d
