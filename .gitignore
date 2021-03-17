@@ -33,3 +33,4 @@ coverage
 /vendor/*
 /bin
 .bundle/config
+Dockerfile_rails.tar

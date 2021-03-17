@@ -18,7 +18,7 @@ services:
     container_name: boilerplate_server
     volumes:
       - ./:/app
-      - /vendor/
+      - boilerplate_vendor:/app/vendor/
 
     depends_on:
       - boilerplate_db
@@ -45,5 +45,6 @@ services:
 
 volumes:
   boilerplate_db_volume:
+  boilerplate_vendor:
 # docker-compose up -d
 # docker-compose exec boilerplate_server rspec
