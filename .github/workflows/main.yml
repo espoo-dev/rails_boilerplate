@@ -9,7 +9,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: docker load
-        run: test -f Dockerfile_rails.tar && docker load < Dockerfile_rails.tar || 0
+        run: test -f Dockerfile_rails.tar && docker load < Dockerfile_rails.tar || true
       - name: docker build
         run: docker build -f Dockerfile_rails . -t edimossilva/boilerplate
       - name: docker save
