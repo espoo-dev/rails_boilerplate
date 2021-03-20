@@ -28,6 +28,7 @@ group :test do
   gem 'simplecov', require: false
   gem 'capybara'
   gem 'selenium-webdriver', '= 4.0.0.beta1'
+  gem 'i18n-tasks', '~> 0.9.34'
 end
 
 group :development, :test do

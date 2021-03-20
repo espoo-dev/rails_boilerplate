@@ -8,11 +8,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Cache multiple paths
+      - name: docker cache
         uses: actions/cache@v2
         with:
           path: dockerfile_rails.tar
-          key: dockerfile-${{ hashFiles('**/Gemfile.lock') }}
+          key: dockerfile-${{ hashFiles('**/Gemfile.lock') }}-${{ hashFiles('**/yarn.lock') }}
 
       - name: docker load
         run: test -f dockerfile_rails.tar && docker load < dockerfile_rails.tar || true
@@ -22,6 +22,9 @@ jobs:
 
       - name: docker save
         run: docker save edimossilva/boilerplate > dockerfile_rails.tar
+
+      - name: docker pull images
+        run: docker-compose pull
 
       - name: start server
         run: docker-compose up -d

@@ -1,12 +1,12 @@
 # README
 
-## Configured gems
+## Main configured gems
 
 1. Rails 6
 
 1. docker (docker-compose)
 
-1. [CI github-actions](https://github.com/edimossilva/rails_boilerplate/actions)
+1. [CI github-actions](https://github.com/edimossilva/rails_boilerplate/actions) (image cache)
 
 1. [rubocop](https://github.com/rubocop-hq/rubocop-rails)
 
@@ -27,3 +27,5 @@
 1. [pundit](https://github.com/varvet/pundit)
 
 1. [administrate](https://github.com/thoughtbot/administrate)
+
+1. [i18n-tasks](https://github.com/glebm/i18n-tasks)
