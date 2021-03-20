@@ -71,3 +71,6 @@ gem 'rack-cors'
 gem 'active_model_serializers'
 
 gem "pundit"
+
+gem 'haml'
+gem "haml-rails", "~> 2.0"
