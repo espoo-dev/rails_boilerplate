@@ -65,6 +65,8 @@ Rails.application.configure do
 
   config.assets.check_precompiled_asset = false
 
+  config.hosts << "#{ENV['HEROKU_APP_NAME']}.herokuapp.com"
+
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true
 
