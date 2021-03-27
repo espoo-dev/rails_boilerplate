@@ -30,4 +30,4 @@
 
 1. [i18n-tasks](https://github.com/glebm/i18n-tasks)
 
-1. [haml](https://github.com/haml/haml)
+1. [slim](https://github.com/slim-template/slim)
