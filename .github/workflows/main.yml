@@ -23,9 +23,6 @@ jobs:
       - name: docker save
         run: docker save edimossilva/boilerplate > dockerfile_rails.tar
 
-      - name: docker pull images
-        run: docker-compose pull
-
       - name: start server
         run: docker-compose up -d
 
