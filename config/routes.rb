@@ -8,8 +8,12 @@ Rails.application.routes.draw do
   get '/jwt_example', to: 'jwt_example#index'
   get '/', to: 'admin/users#index'
 
+  resources :users, only: [:create]
+
   devise_for :users, controllers: {
     sessions: 'users/sessions'
   }
+
+
    # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
