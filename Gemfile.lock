@@ -265,7 +265,7 @@ GEM
     responders (3.0.1)
       actionpack (>= 5.0)
       railties (>= 5.0)
-    rexml (3.2.4)
+    rexml (3.2.5)
     rspec-core (3.10.1)
       rspec-support (~> 3.10.0)
     rspec-expectations (3.10.1)
@@ -379,7 +379,7 @@ GEM
     zeitwerk (2.4.2)
 
 PLATFORMS
-  x86_64-linux-musl
+  x86_64-linux
 
 DEPENDENCIES
   active_model_serializers
