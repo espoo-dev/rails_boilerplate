@@ -1,9 +1,9 @@
-FROM ruby:3.0.0-alpine
+FROM ruby:3.0.1-alpine
 
 # dependencies
 RUN apk add --no-cache \
   git build-base postgresql-dev \
-  nodejs npm tzdata
+  nodejs npm tzdata less
 
 # install recent yarn
 RUN npm install -g yarn
@@ -14,8 +14,9 @@ RUN gem install bundler
 # config home environment
 WORKDIR /app
 
-COPY Gemfile Gemfile.lock /app/
+COPY Gemfile* /app/
 
 RUN gem install bundler
 RUN bundle config set --local path 'vendor/bundle'
-RUN bundle install
+RUN bundle install --binstubs
+
