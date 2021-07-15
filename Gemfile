@@ -73,3 +73,7 @@ gem 'active_model_serializers'
 gem "pundit"
 
 gem 'slim'
+
+gem 'reek'
+
+gem 'brakeman'
