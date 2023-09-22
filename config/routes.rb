@@ -6,4 +6,6 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
+
+  get '/public_method', to: 'hello_world#public_method'
 end
