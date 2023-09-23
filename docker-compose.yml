@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 services:
   database:
     container_name: database-app-container
@@ -14,7 +14,8 @@ services:
   web:
     build: .
     container_name: web-app-container
-    command: bash -c "rm -f tmp/pids/server.pid && bundle exec bin/rails s -p 3000 -b '0.0.0.0'"
+    command: bash
+    # command: bash -c "rm -f tmp/pids/server.pid && bundle exec bin/rails s -p 3000 -b '0.0.0.0'"
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
@@ -26,6 +27,7 @@ services:
       - "3000:3000"
     depends_on:
       - database
+    tty: true
 volumes:
   web_data:
   database-data:

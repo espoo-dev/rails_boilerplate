@@ -51,13 +51,14 @@ gem "bootsnap", require: false
 # gem "image_processing", "~> 1.2"
 
 group :development, :test do
+  gem "bullet"
+
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[mri mingw x64_mingw]
   gem "factory_bot_rails"
 end
 
 group :development do
-  gem 'bullet'
   # To ensure code consistency [https://docs.rubocop.org]
   gem "rubocop", "1.56.2"
   gem "rubocop-performance", "1.19.0"
@@ -86,3 +87,4 @@ group :test do
 end
 
 gem "devise", "~> 4.9"
+gem "devise-api", github: "nejdetkadir/devise-api", branch: "main"

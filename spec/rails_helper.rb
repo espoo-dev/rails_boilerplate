@@ -64,6 +64,16 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
   Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
+  if Bullet.enable?
+    config.before do
+      Bullet.start_request
+    end
+
+    config.after do
+      Bullet.perform_out_of_channel_notifications if Bullet.notification?
+      Bullet.end_request
+    end
+  end
 end
 
 Shoulda::Matchers.configure do |config|
@@ -73,13 +83,4 @@ Shoulda::Matchers.configure do |config|
   end
 end
 
-if Bullet.enable?
-  config.before(:each) do
-    Bullet.start_request
-  end
 
-  config.after(:each) do
-    Bullet.perform_out_of_channel_notifications if Bullet.notification?
-    Bullet.end_request
-  end
-end
