@@ -18,3 +18,6 @@
 
 # Check Security Vulnerabilities
 - docker-compose exec web bundle exec brakeman
+
+# API Doc Swagger
+- localhost:3000/api-docs/index.html
