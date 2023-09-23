@@ -57,6 +57,7 @@ group :development, :test do
 end
 
 group :development do
+  gem 'bullet'
   # To ensure code consistency [https://docs.rubocop.org]
   gem "rubocop", "1.56.2"
   gem "rubocop-performance", "1.19.0"

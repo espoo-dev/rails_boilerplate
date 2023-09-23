@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class ApplicationJob < ActiveJob::Base
+  include Bullet::ActiveJob if Rails.env.development?
   # Automatically retry jobs that encountered a deadlock
   # retry_on ActiveRecord::Deadlocked
 
