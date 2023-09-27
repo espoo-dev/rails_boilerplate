@@ -1,7 +1,7 @@
 version: "3"
 services:
   database:
-    container_name: database-app-container
+    hostname: database-app-container
     image: postgres:15
     environment:
       - POSTGRES_USER=postgres
@@ -12,14 +12,12 @@ services:
     ports:
       - "5432:5432"
   web:
-    build: .
-    container_name: web-app-container
-    # command: bash
-    command: bash -c "rm -f tmp/pids/server.pid && bundle exec bin/rails s -p 3000 -b '0.0.0.0'"
+    build: ./
+    hostname: web-app-container
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_HOST=database
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_HOST: database
     volumes:
       - .:/app
       - web_data:/usr/local/bundle
