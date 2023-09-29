@@ -1,0 +1,130 @@
+name: CI
+on: [push]
+
+jobs:
+  lint:
+    name: Linters
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          cache: 'yarn'
+          node-version-file: '.node-version'
+
+      - name: Install Yarn packages
+        run: yarn install --check-files --pure-lockfile
+
+      - name: Lint files
+        run: bin/lint
+
+  scan:
+    name: Security Analysis
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Scan code vulnerabilities
+        run: bin/scan
+
+  test:
+    name: Test
+    needs:
+      - lint
+      - scan
+    runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: postgres://postgres:example@localhost:5432/app_test
+    services:
+      postgres:
+        image: postgres:14.2
+        ports: ['5432:5432']
+        env:
+          POSTGRES_DB: app_test
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: example
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Install postgres client
+        run: sudo apt-get install libpq-dev
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          cache: 'yarn'
+          node-version-file: '.node-version'
+
+      - name: Install Yarn packages
+        run: yarn install --check-files --pure-lockfile
+
+      - name: Create database structure
+        run: RAILS_ENV=test bundle exec rails db:create db:schema:load
+
+      - name: Run tests
+        run: bundle exec rspec spec --format progress
+
+  coverage:
+    name: Coverage
+    needs:
+      - test
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Setup Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        bundler-cache: true
+
+    - name: Setup Node
+      uses: actions/setup-node@v3
+      with:
+        cache: 'yarn'
+        node-version-file: '.node-version'
+
+    - name: Install Yarn packages
+      run: yarn install --check-files --pure-lockfile
+
+    - name: Configure Database
+      run: |
+        docker run --name my-test-db -e POSTGRES_DB=app_test_coverage -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=example -p 5433:5432 -d postgres:14.2
+
+        sleep 5
+
+    - name: Generate Code Coverage Report
+      run: |
+        export DATABASE_URL=postgres://postgres:example@localhost:5433/app_test_coverage
+
+        bundle exec rspec --format documentation
+
+    - name: Check Code Coverage
+      run: ./check_coverage.sh
+      shell: bash
+
+    - name: Cleanup Database
+      run: |
+        docker stop my-test-db
+        docker rm my-test-db
