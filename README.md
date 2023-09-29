@@ -13,11 +13,10 @@
 - open coverage/index.html (Check coverage report)
 
 # Check lint
-- docker-compose exec web bundle exec rubocop -A
-- docker-compose exec web bundle exec reek
+- docker-compose exec web bundle exec bin/lint
 
 # Check Security Vulnerabilities
-- docker-compose exec web bundle exec brakeman
+- docker-compose exec web bundle exec bin/scan
 
 # API Doc Swagger
 - localhost:3000/api-docs/index.html
