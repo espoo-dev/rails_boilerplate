@@ -9,3 +9,8 @@ echo "============================================"
 echo "== Looking for code offenses with Rubocop =="
 echo "============================================"
 bundle exec rubocop
+
+echo "============================================"
+echo "== Looking for code smells with Reek =="
+echo "============================================"
+bundle exec reek
