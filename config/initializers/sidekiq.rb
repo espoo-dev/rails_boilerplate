@@ -1,4 +1,6 @@
-sidekiq_config = { url: ENV['REDIS_URL_SIDEKIQ'] || "redis://localhost:6379/0" }
+# frozen_string_literal: true
+
+sidekiq_config = { url: ENV["REDIS_URL"] || "redis://localhost:6379/0" }
 
 Sidekiq.configure_server do |config|
   config.logger.level = Logger::ERROR

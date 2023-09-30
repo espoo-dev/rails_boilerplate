@@ -1,6 +1,6 @@
-ARG RUBY_VERSION=3.2.2
+ARG RUBY_VERSION
 
-FROM ruby:${RUBY_VERSION}-slim as base
+FROM ruby:$RUBY_VERSION-slim as base
 
 
 # Rails app lives here
