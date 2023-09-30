@@ -30,7 +30,7 @@ gem "stimulus-rails"
 gem "jbuilder"
 
 # Use Redis adapter to run Action Cable in production
-# gem "redis", "~> 4.0"
+gem "redis"
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
@@ -49,6 +49,18 @@ gem "bootsnap", require: false
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
+
+# Devise is a flexible authentication solution for Rails based on Warden [https://github.com/heartcombo/devise]
+gem "devise", "~> 4.9"
+
+# devise-api authenticate API requests [https://github.com/nejdetkadir/devise-api]
+gem "devise-api", github: "nejdetkadir/devise-api", branch: "main"
+
+# Swagger to Rails-based API's [https://github.com/rswag/rswag]
+gem "rswag"
+
+# Simple, efficient background processing for Ruby [https://github.com/sidekiq/sidekiq]
+gem "sidekiq"
 
 group :development, :test do
   gem "bullet"
@@ -85,7 +97,3 @@ group :test do
   gem "shoulda-matchers", "~> 5.0"
   gem "simplecov", require: false
 end
-
-gem "devise", "~> 4.9"
-gem "devise-api", github: "nejdetkadir/devise-api", branch: "main"
-gem "rswag"

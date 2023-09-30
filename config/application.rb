@@ -23,5 +23,7 @@ module App
     config.generators do |generator|
       generator.test_framework :rspec
     end
+
+    config.active_job.queue_adapter = :sidekiq
   end
 end

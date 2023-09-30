@@ -15,6 +15,7 @@ services:
     build: ./
     hostname: web-app-container
     environment:
+      REDIS_URL_SIDEKIQ: redis://redis:6379/0
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_HOST: database
@@ -25,8 +26,33 @@ services:
       - "3000:3000"
     depends_on:
       - database
+      - redis
     tty: true
+  sidekiq:
+    build: ./
+    hostname: sidekiq-app-container
+    command: /app/bin/bundle exec sidekiq -c 1 -q insert_buffer
+    environment:
+      REDIS_URL_SIDEKIQ: redis://redis:6379/0
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_HOST: database
+    volumes:
+      - .:/sidekiq
+      - sidekiq_data:/usr/local/bundle
+    depends_on:
+      - database
+      - redis
+    tty: true
+  redis:
+    image: docker.io/redis:latest
+    hostname: redis
+    command: redis-server
+    ports:
+      - "6379:6379"
+
 volumes:
+  sidekiq_data:
   web_data:
   database-data:
     driver: local
