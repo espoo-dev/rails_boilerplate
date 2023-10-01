@@ -1,31 +1,42 @@
-require 'rails_helper'
+# frozen_string_literal: true
+
+require "rails_helper"
 
 RSpec.describe HardJob, type: :job do
-  it 'should perform the job' do
-    # Basic
-    expect { HardJob.perform_async }.to enqueue_sidekiq_job
+  context "performs the job"
+  it "Basic" do
+    expect { described_class.perform_async }.to enqueue_sidekiq_job
+  end
 
-    # A specific job class
-    expect { HardJob.perform_async }.to enqueue_sidekiq_job(HardJob)
+  it "A specific job class" do
+    expect { described_class.perform_async }.to enqueue_sidekiq_job(described_class)
+  end
 
-    # with specific arguments
-    expect { HardJob.perform_async "HardJob!" }.to enqueue_sidekiq_job.with("HardJob!")
+  it "with specific arguments" do
+    expect { described_class.perform_async "HardJob!" }.to enqueue_sidekiq_job.with("HardJob!")
+  end
 
-    # On a specific queue
-    expect { HardJob.set(queue: "high").perform_async }.to enqueue_sidekiq_job.on("high")
+  it "On a specific queue" do
+    expect { described_class.set(queue: "high").perform_async }.to enqueue_sidekiq_job.on("high")
+  end
 
-    # At a specific datetime
+  it "At a specific datetime" do
     specific_time = 1.hour.from_now
-    expect { HardJob.perform_at(specific_time) }.to enqueue_sidekiq_job.at(specific_time)
 
-    # In a specific interval (be mindful of freezing or managing time here)
+    expect { described_class.perform_at(specific_time) }.to enqueue_sidekiq_job.at(specific_time)
+  end
+
+  it "In a specific interval (be mindful of freezing or managing time here)" do
     freeze_time do
-      expect { HardJob.perform_in(1.hour) }.to enqueue_sidekiq_job.in(1.hour)
+      expect { described_class.perform_in(1.hour) }.to enqueue_sidekiq_job.in(1.hour)
     end
+  end
 
-    # Combine and chain them as desired
-    expect { HardJob.perform_at(specific_time, "HardJob!") }.to(
-      enqueue_sidekiq_job(HardJob)
+  it "Combine and chain them as desired" do
+    specific_time = 1.hour.from_now
+
+    expect { described_class.perform_at(specific_time, "HardJob!") }.to(
+      enqueue_sidekiq_job(described_class)
       .with("HardJob!")
       .on("default")
       .at(specific_time)

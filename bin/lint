@@ -8,7 +8,7 @@ set -e
 echo "============================================"
 echo "== Looking for code offenses with Rubocop =="
 echo "============================================"
-bundle exec rubocop
+bundle exec rubocop -A
 
 echo "============================================"
 echo "== Looking for code smells with Reek =="

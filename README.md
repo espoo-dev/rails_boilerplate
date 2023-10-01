@@ -23,8 +23,7 @@
 
 ## Sidekiq
 
-Observation: Every time that a new job is created, the server should be stopped
-and sidekiq image needs to be re-build, to perform that run followed commands:
+Observation: Every time that a new job is created, the server should be stopped and sidekiq image needs to be re-build, to perform that run the followed commands:
 
 - docker compose stop
 - docker compose up --build
