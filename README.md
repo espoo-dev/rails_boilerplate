@@ -10,7 +10,7 @@
 - visit http://localhost:3000/
 
 ## Run tests
-- docker compose exec -e RAILS_ENV=test web bundle exec rspec
+- docker compose exec web bundle exec rspec
 - open coverage/index.html (Check coverage report)
 
 ## Check lint
