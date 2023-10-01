@@ -9,7 +9,6 @@ x-app: &app
       NODE_MAJOR: '18'
   environment: &env
     NODE_ENV: ${NODE_ENV:-development}
-    RAILS_ENV: ${RAILS_ENV:-development}
   tmpfs:
     - /tmp
     - /app/tmp/pids
