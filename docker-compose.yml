@@ -24,6 +24,9 @@ x-backend: &backend
     POSTGRES_USER: postgres
     POSTGRES_PASSWORD: postgres
     POSTGRES_HOST: database
+  volumes:
+      - .:/app
+      - backend_data:/usr/local/bundle
   depends_on: &backend_depends_on
     database:
       condition: service_healthy
@@ -46,9 +49,6 @@ services:
   web:
     <<: *backend
     hostname: web-app-container
-    volumes:
-      - .:/app
-      - web_data:/usr/local/bundle
     ports:
       - "3000:3000"
     depends_on:
@@ -57,10 +57,7 @@ services:
   sidekiq:
     <<: *backend
     hostname: sidekiq-app-container
-    command: /app/bin/bundle exec sidekiq -c 1 -q insert_buffer
-    volumes:
-      - .:/sidekiq
-      - sidekiq_data:/usr/local/bundle
+    command: /app/bin/bundle exec sidekiq
   redis:
     image: docker.io/redis:latest
     hostname: redis
@@ -74,7 +71,6 @@ services:
       retries: 30
 
 volumes:
-  sidekiq_data:
-  web_data:
+  backend_data:
   database-data:
     driver: local
