@@ -8,9 +8,9 @@ Please note that this project is released with a [Contributor Code of Conduct](h
 
 Our tests consists of RSpec examples. Please write RSpec examples for new code you create.
 
-## Clone or Fork
+## Fork
 
-Feel free to clone/Fork this repository before send your pull request.
+Fork this repository to start your contributions. When you open a new pull request for your fork, it'll automatically point for this repository.
 
 ## Submitting changes
 
