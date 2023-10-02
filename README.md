@@ -32,3 +32,7 @@ Observation: Every time that a new job is created, the server should be stopped 
 
 - docker compose stop
 - docker compose up --build
+
+## Contributing
+
+We encourage you to contribute to [rails_boilerplate](https://github.com/espoo-dev/rails_boilerplate)! Please check out the [Contributing to rails_boilerplate guide](https://github.com/espoo-dev/rails_boilerplate/blob/master/CONTRIBUTING.md) for guidelines about how to proceed.
