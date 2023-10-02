@@ -2,9 +2,15 @@
 
 I'm really glad you're reading this, because we need volunteer developers to help this project.
 
+Please note that this project is released with a [Contributor Code of Conduct](https://github.com/espoo-dev/rails_boilerplate/blob/master/CODE_OF_CONDUCT.md). By participating in this project you agree to abide by its terms.
+
 ## Testing
 
 Our tests consists of RSpec examples. Please write RSpec examples for new code you create.
+
+## Clone or Fork
+
+Feel free to clone/Fork this repository before send your pull request.
 
 ## Submitting changes
 
