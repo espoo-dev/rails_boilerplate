@@ -1,0 +1,20 @@
+# How to contribute
+
+I'm really glad you're reading this, because we need volunteer developers to help this project.
+
+## Testing
+
+Our tests consists of RSpec examples. Please write RSpec examples for new code you create.
+
+## Submitting changes
+
+Please send a [GitHub Pull Request to rails_boilerplate](https://github.com/espoo-dev/rails_boilerplate/pull/new/master) with a clear list of what you've done (read more about [pull requests](http://help.github.com/pull-requests/)). When you send a pull request, we will love you forever if you include RSpec examples. We can always use more test coverage.
+
+Always write a clear log message for your commits. One-line messages are fine.
+
+Before open a new pull request, please run the commands below locally to make sure that everything is working fine:
+ - [Run tests](https://github.com/espoo-dev/rails_boilerplate#run-tests)
+ - [Check lint](https://github.com/espoo-dev/rails_boilerplate#check-lint)
+ - [Check Security Vulnerabilities](https://github.com/espoo-dev/rails_boilerplate#check-security-vulnerabilities)
+
+Thanks.
