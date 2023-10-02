@@ -84,7 +84,7 @@ group :development do
   # gem "rack-mini-profiler"
 
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
-  # gem "spring"
+  gem "spring"
   gem "pry", "~> 0.14.2"
   gem "reek"
 end
@@ -97,4 +97,5 @@ group :test do
   gem "selenium-webdriver"
   gem "shoulda-matchers", "~> 5.0"
   gem "simplecov", require: false
+  gem "spring-commands-rspec"
 end
