@@ -14,4 +14,9 @@ Rails.application.routes.draw do
 
   get "/public_method", to: "hello_world#public_method"
   get "/private_method", to: "hello_world#private_method"
+
+  namespace :api, defaults: { format: :json } do
+    get "/public_method", to: "hello_world#public_method"
+    get "/private_method", to: "hello_world#private_method"
+  end
 end
