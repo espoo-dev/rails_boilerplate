@@ -1,3 +1,5 @@
+[![CI](https://github.com/espoo-dev/rails_boilerplate/actions/workflows/ci.yml/badge.svg)](https://github.com/espoo-dev/rails_boilerplate/actions/workflows/ci.yml)
+
 ## Requirements
 - Docker
 - Docker-compose
