@@ -62,6 +62,9 @@ gem "rswag"
 # Simple, efficient background processing for Ruby [https://github.com/sidekiq/sidekiq]
 gem "sidekiq"
 
+# Elasticsearch with chewy [https://github.com/toptal/chewy]
+gem "chewy"
+
 group :development, :test do
   gem "bullet"
 
@@ -80,13 +83,13 @@ group :development do
   gem "web-console"
 
   gem "brakeman"
+  gem "pry", "~> 0.14.2"
+  gem "reek"
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"
 
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   gem "spring"
-  gem "pry", "~> 0.14.2"
-  gem "reek"
 end
 
 group :test do
