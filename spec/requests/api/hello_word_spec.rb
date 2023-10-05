@@ -26,17 +26,18 @@ RSpec.describe "HelloWorlds" do
       end
     end
 
-    # context "when user is authenticated" do
-    #   let(:params) {{ email: user.email, passoword: user.password }}
+    context "when user is authenticated" do
+      before do
+        post "/users/tokens/sign_in", params: { email: user.email, password: user.password }, as: :json
+        json_response = JSON.parse(response.body)
 
-    #   before do
-    #     post "/users/tokens/sign_in", params: params, as: :json
-    #     get "/api/private_method"
-    #   end
+        get "/api/private_method", params: {}, headers: { Authorization:  json_response["token"] }
+      end
 
-    #   it "renders json with message" do
-    #     expect(response.body).to include("This method needs authentication")
-    #   end
-    # end
+      it "renders json with message" do
+        expect(response.body).to include("This method needs authentication")
+        expect(response).to have_http_status(200)
+      end
+    end
   end
 end
