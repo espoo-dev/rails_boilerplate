@@ -96,6 +96,8 @@ GEM
     bunny (2.22.0)
       amq-protocol (~> 2.3, >= 2.3.1)
       sorted_set (~> 1, >= 1.0.2)
+    bunny-mock (1.7.0)
+      bunny (>= 1.7)
     capybara (3.39.2)
       addressable
       matrix
@@ -402,6 +404,7 @@ DEPENDENCIES
   brakeman
   bullet
   bunny
+  bunny-mock
   capybara
   debug
   devise (~> 4.9)
