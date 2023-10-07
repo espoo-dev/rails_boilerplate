@@ -105,4 +105,4 @@ group :test do
   gem "simplecov", require: false
   gem "spring-commands-rspec"
 end
-gem "graphiql-rails", group: :development
+gem "graphiql-rails"
