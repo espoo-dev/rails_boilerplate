@@ -8,7 +8,7 @@
 - docker compose build
 - docker compose run web bundle install
 - docker compose run web bin/rails db:setup
-- docker compose up
+- bin/dev
 - visit http://localhost:3000/
 
 ## Run tests
