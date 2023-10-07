@@ -104,5 +104,6 @@ group :test do
   gem "shoulda-matchers", "~> 5.0"
   gem "simplecov", require: false
   gem "spring-commands-rspec"
+  gem "graphiql-rails"
 end
 gem "graphiql-rails"
