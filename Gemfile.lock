@@ -183,6 +183,9 @@ GEM
     faraday-retry (1.0.3)
     globalid (1.2.1)
       activesupport (>= 6.1)
+    graphiql-rails (1.9.0)
+      railties
+      sprockets-rails
     graphql (2.1.1)
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
@@ -438,6 +441,7 @@ DEPENDENCIES
   devise (~> 4.9)
   devise-api!
   factory_bot_rails
+  graphiql-rails
   graphql
   importmap-rails
   jbuilder

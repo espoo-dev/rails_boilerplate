@@ -11,6 +11,9 @@
 - docker compose up
 - visit http://localhost:3000/
 
+## Graphql
+- visit http://localhost:3000/graphiql
+
 ## Run tests
 - docker compose exec web bundle exec bin/rspec
 - open coverage/index.html (Check coverage report)
@@ -23,8 +26,6 @@
 
 ## API Doc Swagger
 - http://localhost:3000/api-docs/index.html
-
-- docker compose run web bundle install
 
 ## Sidekiq
 
