@@ -65,6 +65,10 @@ gem "sidekiq"
 # Elasticsearch with chewy [https://github.com/toptal/chewy]
 gem "chewy"
 
+# Ruby implementation of GraphQL [https://github.com/rmosolgo/graphql-ruby]
+gem "graphql"
+
+
 group :development, :test do
   gem "bullet"
 
@@ -102,3 +106,4 @@ group :test do
   gem "simplecov", require: false
   gem "spring-commands-rspec"
 end
+gem "graphiql-rails", group: :development
