@@ -1,5 +1,3 @@
-# spec/services/rabbitmq_publisher_spec.rb
-
 require 'rails_helper'
 require 'bunny-mock'
 
@@ -8,9 +6,7 @@ RSpec.describe RabbitmqPublisher do
   let(:routing_key) { 'test_routing_key' }
   let(:rabbitmq_url) { 'amqp://test:test@rabbitmq:5672/' }
 
-
-    it 'should publish messages to queues' do
-
+  it 'should publish messages to queues' do
     channel = BunnyMock.new(rabbitmq_url).start.channel
     queue = channel.queue 'queue.test'
 
@@ -23,6 +19,5 @@ RSpec.describe RabbitmqPublisher do
 
     expect(payload[:message]).to eq('Testing message')
     expect(payload[:options][:priority]).to eq(5)
-    end
-
+  end
 end

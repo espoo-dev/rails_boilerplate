@@ -32,8 +32,8 @@ gem "jbuilder"
 # Use Redis adapter to run Action Cable in production
 gem "redis"
 
+# Ruby client for RabbitMQ [https://github.com/ruby-amqp/bunny]
 gem "bunny"
-
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
@@ -102,6 +102,5 @@ group :test do
   gem "shoulda-matchers", "~> 5.0"
   gem "simplecov", require: false
   gem "spring-commands-rspec"
-  gem "bunny-mock"
 
 end
