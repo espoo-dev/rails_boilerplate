@@ -106,4 +106,3 @@ group :test do
   gem "spring-commands-rspec"
   gem "graphiql-rails"
 end
-gem "graphiql-rails"
