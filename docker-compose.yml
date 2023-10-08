@@ -23,6 +23,7 @@ x-backend: &backend
     POSTGRES_USER: postgres
     POSTGRES_PASSWORD: postgres
     POSTGRES_HOST: database
+    ELASTICSEARCH_HOST: http://elasticsearch:9200
   volumes:
       - .:/app
       - backend_data:/usr/local/bundle
@@ -45,12 +46,31 @@ services:
     healthcheck:
       test: pg_isready -U postgres -h 127.0.0.1
       interval: 5s
+  elasticsearch:
+    image: elasticsearch:8.10.2
+    environment:
+      - "discovery.type=single-node"
+      - "cluster.name=elasticsearch-rails"
+      - "cluster.routing.allocation.disk.threshold_enabled=false"
+      - "ES_JAVA_OPTS=-Xms2g -Xmx2g"
+      - ELASTIC_PASSWORD=pwd123
+      - xpack.security.enabled=false
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - elasticsearch_data:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
   web:
     <<: *backend
     hostname: web-app-container
     ports:
       - "3000:3000"
     depends_on:
+      elasticsearch:
+        condition: service_started
       sidekiq:
         condition: service_started
   sidekiq:
@@ -73,3 +93,4 @@ volumes:
   backend_data:
   database-data:
     driver: local
+  elasticsearch_data:

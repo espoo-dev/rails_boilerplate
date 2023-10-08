@@ -48,6 +48,7 @@ jobs:
       - scan
     runs-on: ubuntu-latest
     env:
+      ELASTICSEARCH_HOST: http://localhost:9200
       DATABASE_URL: postgres://postgres:example@localhost:5432/app_test
     services:
       postgres:
@@ -79,8 +80,25 @@ jobs:
       - name: Install Yarn packages
         run: yarn install --check-files --pure-lockfile
 
+      - name: Configure sysctl limits
+        run: |
+          sudo swapoff -a
+          sudo sysctl -w vm.swappiness=1
+          sudo sysctl -w fs.file-max=262144
+          sudo sysctl -w vm.max_map_count=262144
+
+      - name: Runs Elasticsearch
+        uses: elastic/elastic-github-actions/elasticsearch@master
+        with:
+          stack-version: 8.10.2
+          security-enabled: false
+
+      - name: Elasticsearch is reachable
+        run: |
+          curl --verbose --show-error --insecure http://localhost:9200
+
       - name: Create database structure
         run: RAILS_ENV=test bundle exec rails db:create db:schema:load
 
       - name: Run tests
-        run: bundle exec rspec spec --format progress
+        run: bundle exec bin/rspec spec --format progress
