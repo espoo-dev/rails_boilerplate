@@ -33,11 +33,12 @@ RSpec.describe "HelloWorlds" do
     end
 
     context "when user is authenticated" do
-      before do
-        post "/users/tokens/sign_in", params: { email: user.email, password: user.password }, as: :json
-        json_response = response.parsed_body
+      let(:instance_token) { Devise::Api::TokensService::Create.new(resource_owner: user, previous_refresh_token: nil) }
+      let(:token) { Devise::Api::Token.where(resource_owner: user).reload.last.try(:access_token) }
 
-        get "/api/private_method", params: {}, headers: { Authorization: json_response["token"] }
+      before do
+        instance_token.call
+        get "/api/private_method", params: {}, headers: { Authorization: token }
       end
 
       it "renders json with message" do
