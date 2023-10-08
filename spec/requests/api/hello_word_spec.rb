@@ -10,7 +10,7 @@ RSpec.describe "HelloWorlds" do
       expect(response.body).to include("This method does not need authentication")
     end
 
-    it "receives http status" do
+    it "receives http status ok" do
       expect(response).to have_http_status(:ok)
     end
   end
