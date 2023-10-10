@@ -65,12 +65,16 @@ gem "sidekiq"
 # Elasticsearch with chewy [https://github.com/toptal/chewy]
 gem "chewy"
 
+# Ruby implementation of GraphQL [https://github.com/rmosolgo/graphql-ruby]
+gem "graphql"
+
 group :development, :test do
   gem "bullet"
 
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[mri mingw x64_mingw]
   gem "factory_bot_rails"
+  gem "pry", "~> 0.14.2"
 end
 
 group :development do
@@ -83,7 +87,6 @@ group :development do
   gem "web-console"
 
   gem "brakeman"
-  gem "pry", "~> 0.14.2"
   gem "reek"
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"
@@ -101,4 +104,5 @@ group :test do
   gem "shoulda-matchers", "~> 5.0"
   gem "simplecov", require: false
   gem "spring-commands-rspec"
+  gem "graphiql-rails"
 end
