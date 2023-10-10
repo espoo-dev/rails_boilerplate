@@ -8,7 +8,8 @@ RSpec.describe RabbitmqPublisher do
   let(:routing_key) { "test_routing_key" }
   let(:rabbitmq_url) { "amqp://test:test@rabbitmq:5672/" }
 
-  it "publishes messages to queues" do
+  # rubocop:disable RSpec/MultipleExpectations
+  it "publish message to queue" do
     channel = BunnyMock.new(rabbitmq_url).start.channel
     queue = channel.queue "queue.test"
 
