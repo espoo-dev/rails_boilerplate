@@ -59,6 +59,11 @@ GEM
       erubi (~> 1.4)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.1, >= 1.2.0)
+    active_model_serializers (0.10.14)
+      actionpack (>= 4.1)
+      activemodel (>= 4.1)
+      case_transform (>= 0.2)
+      jsonapi-renderer (>= 0.1.1.beta1, < 0.3)
     activejob (7.0.8)
       activesupport (= 7.0.8)
       globalid (>= 0.3.6)
@@ -101,6 +106,8 @@ GEM
       rack-test (>= 0.6.3)
       regexp_parser (>= 1.5, < 3.0)
       xpath (~> 3.2)
+    case_transform (0.2)
+      activesupport
     chewy (7.3.4)
       activesupport (>= 5.2)
       elasticsearch (>= 7.12.0, < 7.14.0)
@@ -202,6 +209,7 @@ GEM
     json (2.6.3)
     json-schema (3.0.0)
       addressable (>= 2.8)
+    jsonapi-renderer (0.2.2)
     kwalify (0.7.2)
     language_server-protocol (3.17.0.3)
     loofah (2.21.3)
@@ -432,6 +440,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  active_model_serializers
   bootsnap
   brakeman
   bullet

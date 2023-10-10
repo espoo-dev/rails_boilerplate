@@ -68,6 +68,9 @@ gem "chewy"
 # Ruby implementation of GraphQL [https://github.com/rmosolgo/graphql-ruby]
 gem "graphql"
 
+# Active Model Serializer [https://github.com/rails-api/active_model_serializers]
+gem 'active_model_serializers'
+
 group :development, :test do
   gem "bullet"
 
