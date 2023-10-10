@@ -81,6 +81,7 @@ GEM
       tzinfo (~> 2.0)
     addressable (2.8.5)
       public_suffix (>= 2.0.2, < 6.0)
+    amq-protocol (2.3.2)
     ast (2.4.2)
     base64 (0.1.1)
     bcrypt (3.1.19)
@@ -92,6 +93,11 @@ GEM
     bullet (7.0.7)
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.11)
+    bunny (2.22.0)
+      amq-protocol (~> 2.3, >= 2.3.1)
+      sorted_set (~> 1, >= 1.0.2)
+    bunny-mock (1.7.0)
+      bunny (>= 1.7)
     capybara (3.39.2)
       addressable
       matrix
@@ -282,6 +288,7 @@ GEM
       zeitwerk (~> 2.5)
     rainbow (3.1.1)
     rake (13.0.6)
+    rbtree (0.4.6)
     rdoc (6.5.0)
       psych (>= 4.0.0)
     redis (5.0.7)
@@ -371,6 +378,7 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
+    set (1.0.3)
     shoulda-matchers (5.3.0)
       activesupport (>= 5.2.0)
     sidekiq (7.1.4)
@@ -384,6 +392,9 @@ GEM
       simplecov_json_formatter (~> 0.1)
     simplecov-html (0.12.3)
     simplecov_json_formatter (0.1.4)
+    sorted_set (1.0.3)
+      rbtree
+      set (~> 1.0)
     spring (4.1.1)
     spring-commands-rspec (1.0.4)
       spring (>= 0.9.1)
@@ -431,6 +442,8 @@ DEPENDENCIES
   bootsnap
   brakeman
   bullet
+  bunny
+  bunny-mock
   capybara
   chewy
   debug
