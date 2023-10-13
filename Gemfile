@@ -101,11 +101,11 @@ end
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
+  gem "graphiql-rails"
   gem "rspec-rails", "~> 6.0.0"
   gem "rspec-sidekiq"
   gem "selenium-webdriver"
   gem "shoulda-matchers", "~> 5.0"
   gem "simplecov", require: false
   gem "spring-commands-rspec"
-  gem "graphiql-rails"
 end
