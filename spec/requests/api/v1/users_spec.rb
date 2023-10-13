@@ -4,38 +4,26 @@ require "rails_helper"
 
 RSpec.describe "Users" do
   describe "GET /api/v1/users" do
-    context 'when has user' do
+    context "when has user" do
       let!(:user) { create(:user) }
 
       before do
         get "/api/v1/users"
-        @parsed_body = JSON.parse(response.body)
       end
 
-      it "renders json with user" do
-        expect(@parsed_body.first).to have_key("id")
-        expect(@parsed_body.first).to have_key("email")
-        expect(@parsed_body.first["email"]).to eq(user.email)
-      end
-
-      it "receives http status ok" do
-        expect(response).to have_http_status(:ok)
-      end
+      it { expect(response.parsed_body.first).to have_key("id") }
+      it { expect(response.parsed_body.first).to have_key("email") }
+      it { expect(response.parsed_body.first["email"]).to be(user.email) }
+      it { expect(response).to have_http_status(:ok) }
     end
 
-    context 'when does not have user' do
+    context "when does not have user" do
       before do
         get "/api/v1/users"
-        @parsed_body = JSON.parse(response.body)
       end
 
-      it "renders json with user" do
-        expect(@parsed_body.empty?).to eq(true)
-      end
-
-      it "receives http status ok" do
-        expect(response).to have_http_status(:ok)
-      end
+      it { expect(response.parsed_body.empty?).to be(true) }
+      it { expect(response).to have_http_status(:ok) }
     end
   end
 end
