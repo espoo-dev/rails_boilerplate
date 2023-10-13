@@ -13,7 +13,7 @@ RSpec.describe "Users" do
 
       it { expect(response.parsed_body.first).to have_key("id") }
       it { expect(response.parsed_body.first).to have_key("email") }
-      it { expect(response.parsed_body.first["email"]).to be(user.email) }
+      it { expect(response.parsed_body.first["email"]).to eq(user.email) }
       it { expect(response).to have_http_status(:ok) }
     end
 
