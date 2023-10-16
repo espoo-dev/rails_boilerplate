@@ -68,6 +68,9 @@ gem "chewy"
 # Ruby implementation of GraphQL [https://github.com/rmosolgo/graphql-ruby]
 gem "graphql"
 
+# Active Model Serializer [https://github.com/rails-api/active_model_serializers]
+gem "active_model_serializers"
+
 group :development, :test do
   gem "bullet"
 
@@ -98,11 +101,11 @@ end
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
+  gem "graphiql-rails"
   gem "rspec-rails", "~> 6.0.0"
   gem "rspec-sidekiq"
   gem "selenium-webdriver"
   gem "shoulda-matchers", "~> 5.0"
   gem "simplecov", require: false
   gem "spring-commands-rspec"
-  gem "graphiql-rails"
 end

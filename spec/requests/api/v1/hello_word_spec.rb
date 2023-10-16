@@ -3,8 +3,8 @@
 require "rails_helper"
 
 RSpec.describe "HelloWorlds" do
-  describe "GET /public_method" do
-    before { get "/api/public_method" }
+  describe "GET /api/v1/public_method" do
+    before { get "/api/v1/public_method" }
 
     it "renders json with message" do
       expect(response.body).to include("This method does not need authentication")
@@ -15,12 +15,12 @@ RSpec.describe "HelloWorlds" do
     end
   end
 
-  describe "GET /private_method" do
+  describe "GET /api/v1/private_method" do
     let(:user) { create(:user) }
 
     context "when user is not authenticated" do
       before do
-        get "/api/private_method"
+        get "/api/v1/private_method"
       end
 
       it "renders json with message" do
@@ -38,7 +38,7 @@ RSpec.describe "HelloWorlds" do
 
       before do
         instance_token.call
-        get "/api/private_method", params: {}, headers: { Authorization: token }
+        get "/api/v1/private_method", params: {}, headers: { Authorization: token }
       end
 
       it "renders json with message" do
