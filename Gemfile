@@ -71,10 +71,17 @@ gem "graphql"
 # Active Model Serializer [https://github.com/rails-api/active_model_serializers]
 gem "active_model_serializers"
 
+# Provides CSRF protection on OmniAuth request endpoint on Rails application.
+gem 'omniauth-rails_csrf_protection'
+
+# GitHub strategy for OmniAuth
+gem 'omniauth-github'
+
 group :development, :test do
   gem "bullet"
 
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
+  gem "graphiql-rails"
   gem "debug", platforms: %i[mri mingw x64_mingw]
   gem "factory_bot_rails"
   gem "pry", "~> 0.14.2"
@@ -101,7 +108,6 @@ end
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
-  gem "graphiql-rails"
   gem "rspec-rails", "~> 6.0.0"
   gem "rspec-sidekiq"
   gem "selenium-webdriver"
