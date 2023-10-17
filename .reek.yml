@@ -9,6 +9,10 @@ detectors:
   # You can use filters to silence Reek warnings.
   # Either because you simply disagree with Reek (we are not the police) or
   # because you want to fix this at a later point in time.
+  UncommunicativeModuleName:
+    accept:
+      - V1
+
   NestedIterators:
     exclude:
       - "MyWorker#self.class_method" # should be refactored
