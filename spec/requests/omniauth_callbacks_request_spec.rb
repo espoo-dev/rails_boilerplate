@@ -29,7 +29,7 @@ RSpec.describe "/users/auth/:provider", type: :system do
 
     context "when user does not exists" do
       it "creates user" do
-        expect { do_request }.to(change { User.count }.by(1))
+        expect { do_request }.to(change(User, :count).by(1))
       end
 
       it "redirects to root page" do
@@ -39,10 +39,10 @@ RSpec.describe "/users/auth/:provider", type: :system do
     end
 
     context "when user exists" do
-      let!(:user) { create(:user, email: mock_email, oauth_uid: "1234") }
+      before { create(:user, email: mock_email, oauth_uid: "1234") }
 
       it "does not create user" do
-        expect { do_request }.not_to(change { User.count })
+        expect { do_request }.not_to(change(User, :count))
       end
 
       it "redirects to root page" do
@@ -52,10 +52,10 @@ RSpec.describe "/users/auth/:provider", type: :system do
     end
 
     context "when user has invalid oauth_uid" do
-      let!(:user) { create(:user, email: mock_email, oauth_uid: "invalid") }
+      before { create(:user, email: mock_email, oauth_uid: "invalid") }
 
       it "does not create user" do
-        expect { do_request }.not_to(change { User.count })
+        expect { do_request }.not_to(change(User, :count))
       end
 
       it "redirects to sign_up page" do

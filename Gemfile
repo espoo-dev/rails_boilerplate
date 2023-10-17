@@ -72,24 +72,25 @@ gem "graphql"
 gem "active_model_serializers"
 
 # Provides CSRF protection on OmniAuth request endpoint on Rails application.
-gem 'omniauth-rails_csrf_protection'
+gem "omniauth-rails_csrf_protection"
 
 # GitHub strategy for OmniAuth
-gem 'omniauth-github'
+gem "omniauth-github"
 
 group :development, :test do
   gem "bullet"
 
-  # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
-  gem "graphiql-rails"
   gem "debug", platforms: %i[mri mingw x64_mingw]
   gem "factory_bot_rails"
+  # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
+  gem "graphiql-rails"
   gem "pry", "~> 0.14.2"
 end
 
 group :development do
   # To ensure code consistency [https://docs.rubocop.org]
   gem "rubocop", "1.56.2"
+  gem "rubocop-graphql", "~> 1.4"
   gem "rubocop-performance", "1.19.0"
   gem "rubocop-rails", "2.20.2"
   gem "rubocop-rspec", "2.23.2"
