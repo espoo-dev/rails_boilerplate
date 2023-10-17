@@ -11,7 +11,7 @@ class User < ApplicationRecord
 
   validates :email, uniqueness: { case_sensitive: false }
 
-  def self.create_from_provider_data(oauth_provider_data)
+  def self.find_or_create_from_oauth_provider_data(oauth_provider_data)
     where(
       oauth_provider: oauth_provider_data.oauth_provider,
       oauth_uid: oauth_provider_data.uid
