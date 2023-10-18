@@ -264,6 +264,14 @@ Devise.setup do |config|
   config.omniauth :github, ENV.fetch("GITHUB_CLIENT_ID", nil), ENV.fetch("GITHUB_CLIENT_SECRET", nil),
     scope: "user,public_repo"
 
+  config.omniauth :strava, ENV.fetch("STRAVA_CLIENT_ID", nil), ENV.fetch("STRAVA_CLIENT_SECRET", nil),
+    scope: "read", token_params: {
+      :client_id => ENV.fetch("STRAVA_CLIENT_ID", nil),
+      :client_secret => ENV.fetch("STRAVA_CLIENT_SECRET", nil),
+    }
+  # config.session_store :cookie_store, key: '_app_session', domain: 'my_app.com'
+  # Rails.application.config.session_store :cookie_store, key: '_app_session', domain: 'http://localhost'
+
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
   # change the failure app, you can configure them inside the config.warden block.
