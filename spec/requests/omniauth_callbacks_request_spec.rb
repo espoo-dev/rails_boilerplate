@@ -15,7 +15,7 @@ RSpec.describe "/users/auth/:provider", type: :system do
 
     let(:callback_params) do
       {
-        "provider" => "google",
+        "provider" => "github",
         "uid" => "1234",
         "info" => {
           "email" => mock_email
@@ -39,7 +39,7 @@ RSpec.describe "/users/auth/:provider", type: :system do
     end
 
     context "when user exists" do
-      before { create(:user, email: mock_email, oauth_uid: "1234") }
+      before { create(:user, email: mock_email, oauth_provider: "github", oauth_uid: "1234") }
 
       it "does not create user" do
         expect { do_request }.not_to(change(User, :count))
