@@ -68,6 +68,7 @@ Metrics/ClassLength:
 
 Metrics/MethodLength:
   CountAsOne: ['array', 'hash', 'heredoc']
+  Max: 12
 
 Naming/VariableNumber:
   Enabled: false
@@ -87,6 +88,9 @@ RSpec/ExampleLength:
 
 RSpec/MessageSpies:
   EnforcedStyle: receive
+
+RSpec/MultipleExpectations:
+  Max: 3
 
 RSpec/ImplicitSubject:
   EnforcedStyle: single_statement_only

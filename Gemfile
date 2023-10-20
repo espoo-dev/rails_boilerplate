@@ -77,6 +77,9 @@ gem "omniauth-rails_csrf_protection"
 # GitHub strategy for OmniAuth
 gem "omniauth-github"
 
+# GitHub strategy for Strava
+gem "omniauth-strava"
+
 group :development, :test do
   gem "bullet"
 
