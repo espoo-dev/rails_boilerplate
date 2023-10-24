@@ -80,6 +80,9 @@ gem "omniauth-github"
 # GitHub strategy for Strava
 gem "omniauth-strava"
 
+# Packages sturcture support
+gem 'packwerk'
+
 group :development, :test do
   gem "bullet"
 
