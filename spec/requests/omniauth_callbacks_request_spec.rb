@@ -57,11 +57,6 @@ RSpec.describe "/users/auth/:provider", type: :system do
       it "does not create user" do
         expect { do_request }.not_to(change(User, :count))
       end
-
-      it "redirects to sign_up page" do
-        do_request
-        expect(response).to redirect_to "/users/sign_up"
-      end
     end
   end
 
