@@ -25,5 +25,6 @@ module App
     end
 
     config.active_job.queue_adapter = :sidekiq
+    config.paths.add "packs", glob: "*/{*,*/concerns}", eager_load: true
   end
 end
