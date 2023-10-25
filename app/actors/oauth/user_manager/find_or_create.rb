@@ -23,9 +23,9 @@ module Oauth
 
         case oauth_provider
         when ALLOWED_PROVIDERS_HASH[:github]
-          find_or_create_user(ALLOWED_PROVIDERS_HASH[:github], auth.info.email)
+          find_or_create_user(auth, ALLOWED_PROVIDERS_HASH[:github], auth.info.email)
         when ALLOWED_PROVIDERS_HASH[:strava]
-          find_or_create_user(ALLOWED_PROVIDERS_HASH[:strava], strava_generated_email(auth))
+          find_or_create_user(auth, ALLOWED_PROVIDERS_HASH[:strava], strava_generated_email(auth))
         else
           fail!(error: :invalid_oauth_provider)
         end
@@ -35,10 +35,10 @@ module Oauth
         "#{oauth_provider.uid}@strava_unknown_email.com"
       end
 
-      def find_or_create_user(oauth_provider, email)
+      def find_or_create_user(oauth_provider_data, oauth_provider, email)
         self.user = User.where(
           oauth_provider: oauth_provider,
-          oauth_uid: auth.uid
+          oauth_uid: oauth_provider_data.uid
         ).first_or_create do |user|
           user.email = email
           user.password = Devise.friendly_token[0, 20]
