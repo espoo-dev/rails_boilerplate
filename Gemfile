@@ -71,6 +71,11 @@ gem "graphql"
 # Active Model Serializer [https://github.com/rails-api/active_model_serializers]
 gem "active_model_serializers"
 
+# This Ruby gem lets you move your application logic into small composable service objects. [https://github.com/sunny/actor]
+gem "service_actor", "~> 3.7"
+# ServiceActor-Rails provides Rails support for the ServiceActor gem. [https://github.com/sunny/actor-rails]
+gem "service_actor-rails", "~> 1.0"
+
 # Provides CSRF protection on OmniAuth request endpoint on Rails application.
 gem "omniauth-rails_csrf_protection"
 
