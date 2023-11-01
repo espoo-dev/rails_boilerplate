@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Oauth::FindOrCreateUser, type: :actor do
+RSpec.describe Oauth::Actors::FindOrCreateUser, type: :actor do
   describe ".call" do
     context "when oauth_provider is 'github' and user exists" do
       it "is successful" do
