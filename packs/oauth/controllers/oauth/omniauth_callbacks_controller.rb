@@ -11,12 +11,18 @@ module Oauth
     end
 
     def oauth_sign_in
-      user = Oauth::UserManagerService.new.find_or_create_from_oauth_provider(request.env["omniauth.auth"])
-      if user.persisted?
-        sign_in_and_redirect user
+      result = Oauth::FindOrCreate.result(auth: omniauth_env)
+      if result.user.persisted?
+        sign_in_and_redirect result.user
       else
         redirect_to new_user_registration_url
       end
+    end
+
+    private
+
+    def omniauth_env
+      request.env["omniauth.auth"]
     end
   end
 end

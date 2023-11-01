@@ -86,7 +86,7 @@ gem "omniauth-github"
 gem "omniauth-strava"
 
 # Packages sturcture support
-gem 'packwerk'
+gem "packwerk"
 
 group :development, :test do
   gem "bullet"
