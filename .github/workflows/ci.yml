@@ -101,4 +101,4 @@ jobs:
         run: RAILS_ENV=test bundle exec rails db:create db:schema:load
 
       - name: Run tests
-        run: bundle exec bin/rspec spec --format progress -P ./**/*_spec.rb
+        run: bundle exec bin/rspec spec --format progress
