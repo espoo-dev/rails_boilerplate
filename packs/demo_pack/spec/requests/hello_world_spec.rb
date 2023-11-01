@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "HelloWorlds" do
+RSpec.describe "DemoPack::Controllers::HelloWorld" do
   describe "GET /public_method" do
     before { get "/public_method" }
 

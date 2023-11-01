@@ -25,7 +25,8 @@ module App
     end
 
     config.active_job.queue_adapter = :sidekiq
-    # config.paths.add "packs", glob: "oauth/app/*/**", eager_load: true
+
     config.autoload_paths << "#{root}/packs/oauth/app"
+    config.autoload_paths << "#{root}/packs/demo_pack/app"
   end
 end
