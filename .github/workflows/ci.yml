@@ -98,7 +98,7 @@ jobs:
           curl --verbose --show-error --insecure http://localhost:9200
 
       - name: Create database structure
-        run: RAILS_ENV=test bundle exec rails db:create db:schema:load
+        run: RAILS_ENV=test bin/rails db:create db:schema:load
 
       - name: Run tests
         run: bundle exec bin/rspec spec --format progress
