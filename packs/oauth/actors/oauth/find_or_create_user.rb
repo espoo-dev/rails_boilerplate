@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Oauth
-  class FindOrCreate < Actor
+  class FindOrCreateUser < Actor
     ALLOWED_PROVIDERS_HASH = {
       github: "github",
       strava: "strava"

@@ -11,7 +11,7 @@ module Oauth
     end
 
     def oauth_sign_in
-      result = Oauth::FindOrCreate.result(auth: omniauth_env)
+      result = Oauth::FindOrCreateUser.result(auth: omniauth_env)
       if result.user.persisted?
         sign_in_and_redirect result.user
       else
