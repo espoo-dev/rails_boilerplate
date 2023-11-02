@@ -15,7 +15,7 @@
 - visit http://localhost:3000/graphiql
 
 ## Run tests
-- docker compose exec web bundle exec bin/rspec
+- docker compose exec web bundle exec bin/rspec -P ./*/**/*_spec.rb (-P ./*/**/*_spec.rb is needed to run specs from packs)
 - open coverage/index.html (Check coverage report)
 
 ## Check lint

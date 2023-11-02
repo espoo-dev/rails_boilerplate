@@ -101,4 +101,4 @@ jobs:
           curl --verbose --show-error --insecure http://localhost:9200
 
       - name: Run tests
-        run: bundle exec bin/rspec spec --format progress
+        run: bundle exec bin/rspec spec --format progress -P ./*/**/*_spec.rb
