@@ -13,7 +13,8 @@ module Oauth
 
       def oauth_sign_in
         result = Oauth::Actors::FindOrCreateUser.result(auth: omniauth_env)
-        if result.user.persisted?
+
+        if result.success?
           sign_in_and_redirect result.user
         else
           redirect_to new_user_registration_url
