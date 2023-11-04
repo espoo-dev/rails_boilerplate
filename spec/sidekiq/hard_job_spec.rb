@@ -42,4 +42,12 @@ RSpec.describe HardJob, type: :job do
       .at(specific_time)
     )
   end
+
+  describe "#perform" do
+    it "logs args from parameters" do
+      args = { message: "something nice" }
+      expect(Rails.logger).to receive(:debug).with([args])
+      described_class.new.perform(args)
+    end
+  end
 end
