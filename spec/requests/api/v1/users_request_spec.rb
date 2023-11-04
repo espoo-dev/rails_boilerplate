@@ -25,5 +25,27 @@ RSpec.describe "Users" do
       it { expect(response.parsed_body.empty?).to be(true) }
       it { expect(response).to have_http_status(:ok) }
     end
+
+    context "when has pagination via page and per_page" do
+      let(:do_request) { get "/api/v1/users", params: }
+
+      let(:json_response) { response.parsed_body }
+
+      let(:params) do
+        {
+          page: 2,
+          per_page: 5
+        }
+      end
+
+      before do
+        create_list(:user, 9)
+        do_request
+      end
+
+      it "returns only 4 users" do
+        expect(json_response.length).to eq(4)
+      end
+    end
   end
 end
