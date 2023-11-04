@@ -14,7 +14,10 @@ RSpec.describe Oauth::Actors::FindOrCreateUser, type: :actor do
             name: "Naruto Uzumaki"
           }
         )
-        create(:user, email: "test@email.com")
+        create(
+          :user, email: "test@email.com", oauth_provider: "github",
+          oauth_uid: "929ef6ef-b11f-38c9-111b-accd67a258b2"
+        )
 
         result = described_class.result(auth: auth)
         expect(result.success?).to be true

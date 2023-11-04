@@ -92,6 +92,9 @@ RSpec/MessageSpies:
 RSpec/MultipleExpectations:
   Max: 3
 
+RSpec/NestedGroups:
+  Max: 5
+
 RSpec/ImplicitSubject:
   EnforcedStyle: single_statement_only
 

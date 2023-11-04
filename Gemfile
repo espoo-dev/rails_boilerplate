@@ -91,6 +91,9 @@ gem "omniauth-strava"
 # Packages sturcture support
 gem "packwerk"
 
+# A Scope & Engine based, clean, powerful, customizable and sophisticated paginator for Ruby webapps
+gem "kaminari"
+
 group :development, :test do
   gem "bullet"
 
