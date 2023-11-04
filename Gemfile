@@ -56,6 +56,9 @@ gem "devise", "~> 4.9"
 # devise-api authenticate API requests [https://github.com/nejdetkadir/devise-api]
 gem "devise-api", github: "nejdetkadir/devise-api", branch: "main"
 
+# Rack::Cors provides support for Cross-Origin Resource Sharing (CORS) for Rack compatible web applications [https://github.com/cyu/rack-cors]
+gem "rack-cors"
+
 # Swagger to Rails-based API's [https://github.com/rswag/rswag]
 gem "rswag"
 
