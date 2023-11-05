@@ -22,6 +22,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       get "/public_method", to: "hello_world#public_method"
       get "/private_method", to: "hello_world#private_method"
+      post "/import", to: "handle_file#import"
 
       resources :users, only: [:index]
     end
