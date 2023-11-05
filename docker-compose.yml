@@ -19,11 +19,6 @@ x-backend: &backend
   tty: true
   environment: &backend_environment
     <<: *env
-    REDIS_URL: redis://redis:6379/0
-    POSTGRES_USER: postgres
-    POSTGRES_PASSWORD: postgres
-    POSTGRES_HOST: database
-    ELASTICSEARCH_HOST: http://elasticsearch:9200
   volumes:
       - .:/app
       - backend_data:/usr/local/bundle
