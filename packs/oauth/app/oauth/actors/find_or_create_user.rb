@@ -14,6 +14,8 @@ module Oauth
 
       def call
         self.user = find_or_create_with_oauth_provider(auth)
+
+        fail!(error: :invalid_user) unless user.persisted?
       end
 
       private

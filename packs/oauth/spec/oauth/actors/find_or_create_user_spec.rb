@@ -14,7 +14,10 @@ RSpec.describe Oauth::Actors::FindOrCreateUser, type: :actor do
             name: "Naruto Uzumaki"
           }
         )
-        create(:user, email: "test@email.com")
+        create(
+          :user, email: "test@email.com", oauth_provider: "github",
+          oauth_uid: "929ef6ef-b11f-38c9-111b-accd67a258b2"
+        )
 
         result = described_class.result(auth: auth)
         expect(result.success?).to be true
@@ -159,6 +162,40 @@ RSpec.describe Oauth::Actors::FindOrCreateUser, type: :actor do
         result = described_class.result(auth: auth)
 
         expect(result.failure?).to be true
+      end
+    end
+
+    context "when oauth_provider is unknown" do
+      it "fails with an error" do
+        auth = OmniAuth::AuthHash.new(
+          provider: "unknown_provider",
+          uid: "929ef6ef-b11f-38c9-111b-accd67a258b2",
+          info: {
+            email: "test@email.com",
+            name: "Naruto Uzumaki"
+          }
+        )
+        result = described_class.result(auth: auth)
+
+        expect(result.failure?).to be true
+        expect(result.error).to eq(:invalid_oauth_provider)
+      end
+    end
+
+    context "when auth attributes are empty" do
+      it "fails with an error" do
+        auth = OmniAuth::AuthHash.new(
+          provider: "github",
+          uid: "929ef6ef-b11f-38c9-111b-accd67a258b2",
+          info: {
+            email: nil,
+            name: nil
+          }
+        )
+        result = described_class.result(auth: auth)
+
+        expect(result.failure?).to be true
+        expect(result.error).to eq(:invalid_user)
       end
     end
   end
