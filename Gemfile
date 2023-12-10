@@ -94,6 +94,9 @@ gem "packwerk"
 # A Scope & Engine based, clean, powerful, customizable and sophisticated paginator for Ruby webapps
 gem "kaminari"
 
+# Minimal authorization through OO design and pure Ruby classes
+gem "pundit"
+
 group :development, :test do
   gem "bullet"
 
