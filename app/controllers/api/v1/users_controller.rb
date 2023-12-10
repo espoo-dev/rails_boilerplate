@@ -2,10 +2,13 @@
 
 module Api
   module V1
-    class UsersController < Api::ApplicationController
+    class UsersController < ApiController
       def index
-        @users = User.page(page).per(per_page)
-        render json: @users, status: :ok
+        users = User.page(page).per(per_page)
+
+        authorize(users)
+
+        render json: users, status: :ok
       end
 
       private
