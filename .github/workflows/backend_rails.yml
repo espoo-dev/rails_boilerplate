@@ -18,15 +18,6 @@ jobs:
           bundler-cache: true
           working-directory: backend
 
-      - name: Setup Node
-        uses: actions/setup-node@v3
-        with:
-          node-version-file: "backend/.node-version"
-          cache-dependency-path: "backend/yarn.json"
-
-      - name: Install Yarn packages
-        run: yarn install --check-files --pure-lockfile
-
       - name: Lint files
         run: bin/lint
 
