@@ -45,6 +45,7 @@ jobs:
 
       - name: Scan code vulnerabilities
         run: bin/scan
+        working-directory: backend
 
   test:
     name: Test
