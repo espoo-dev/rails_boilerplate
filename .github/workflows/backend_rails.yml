@@ -41,6 +41,7 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
+          working-directory: backend
 
       - name: Scan code vulnerabilities
         run: bin/scan
@@ -71,6 +72,7 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
+          working-directory: backend
 
       - name: Install postgres client
         run: sudo apt-get install libpq-dev
