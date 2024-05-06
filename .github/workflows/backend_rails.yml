@@ -22,7 +22,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version-file: "backend/.node-version"
-          cache-dependency-path: "backend/package-lock.json" # THIS PATTERN did the trick for me.
+          cache-dependency-path: "backend/yarn.lock"
 
       - name: Install Yarn packages
         run: yarn install --check-files --pure-lockfile
