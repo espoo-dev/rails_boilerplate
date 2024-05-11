@@ -40,6 +40,9 @@ jobs:
 
   test:
     name: Test
+    defaults:
+      run:
+        working-directory: backend
     needs:
       - lint
       - scan
