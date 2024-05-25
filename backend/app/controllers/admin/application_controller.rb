@@ -8,17 +8,28 @@
 # you're free to overwrite the RESTful controller actions.
 module Admin
   class ApplicationController < Administrate::ApplicationController
+    before_action :authenticate_user!
     before_action :authenticate_admin
     before_action :set_paper_trail_whodunnit
 
-    def authenticate_admin
-      # TODO: Add authentication logic here.
-    end
+    rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
-    # Override this value to specify the number of elements to display at a time
-    # on index pages. Defaults to 20.
-    # def records_per_page
-    #   params[:per_page] || 20
-    # end
+    include Pundit::Authorization
+    after_action :verify_authorized
+
+    def authenticate_admin
+      authorize :admin_dashboard, :full_access?
+
+      # authorized = AdminDashboardPolicy.new(current_user, nil).send(:admin_dashboard?)
+      # raise Pundit::NotAuthorizedError unless authorized
+    end
+    private
+
+    def user_not_authorized(exception)
+      policy_name = exception.policy.class.to_s.underscore
+      flash[:error] = t "#{policy_name}.#{exception.query}", scope: "pundit", default: :default
+      render file: "#{Rails.root}/public/401.html", layout: false, status: 401
+
+    end
   end
 end
