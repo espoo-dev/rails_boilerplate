@@ -1,22 +1,31 @@
 
 <script>
 import { ref } from 'vue'
+import { doLoginApi } from "../services/authApi";
 
 export default {
   setup() {
     // state
-    const username = ref("user@email.com")
+    const username = ref("admin@email.com")
     const password = ref("password")
 
     // methods
     const doLogin = () => {
-      console.log(`${username.value} , ${password.value}`)
+      doLoginApi(username.value, password.value).then(
+        (result) => {
+          localStorage.token = result.data.token;
+        },
+        (error) => {
+          console.error(error.response.data.error_message);
+        }
+      );
     }
 
     return {
       username,
       password,
-      doLogin
+      doLogin,
+      doLoginApi
     }
   },
 }
