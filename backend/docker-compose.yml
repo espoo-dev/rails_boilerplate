@@ -4,9 +4,9 @@ x-app: &app
   build:
     context: .
     args:
-      RUBY_VERSION: '3.2.2'
-      PG_MAJOR: '15'
-      NODE_MAJOR: '18'
+      RUBY_VERSION: "3.3.1"
+      PG_MAJOR: "15"
+      NODE_MAJOR: "18"
   environment: &env
     NODE_ENV: ${NODE_ENV:-development}
   tmpfs:
@@ -20,8 +20,8 @@ x-backend: &backend
   environment: &backend_environment
     <<: *env
   volumes:
-      - .:/app
-      - backend_data:/usr/local/bundle
+    - .:/app
+    - backend_data:/usr/local/bundle
   depends_on: &backend_depends_on
     database:
       condition: service_healthy

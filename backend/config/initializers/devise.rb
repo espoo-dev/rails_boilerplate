@@ -307,3 +307,13 @@ Devise.setup do |config|
   # changed. Defaults to true, so a user is signed in automatically after changing a password.
   # config.sign_in_after_change_password = true
 end
+
+# To avoid DEPRECATION WARNING: `application.secrets` is deprecated in favor of `Rails.application.credentials`
+# and will be removed in Rails 7.2.
+module Devise
+  class SecretKeyFinder
+    def find
+      @application.secret_key_base
+    end
+  end
+end

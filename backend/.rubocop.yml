@@ -4,6 +4,7 @@ require:
   - rubocop-performance
   - rubocop-rails
   - rubocop-rspec
+  - rubocop-graphql
 
 AllCops:
   NewCops: enable
@@ -112,3 +113,18 @@ Style/SymbolProc:
 
 Style/UnlessLogicalOperators:
   EnforcedStyle: forbid_logical_operators
+
+GraphQL/MaxComplexitySchema:
+  Enabled: false
+
+GraphQL/MaxDepthSchema:
+  Enabled: false
+
+GraphQL/ObjectDescription:
+  Enabled: false
+
+GraphQL/ArgumentDescription:
+  Enabled: false
+
+GraphQL/FieldDescription:
+  Enabled: false
