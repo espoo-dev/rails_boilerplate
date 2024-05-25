@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "administrate/base_dashboard"
 
 class UserDashboard < Administrate::BaseDashboard
@@ -13,7 +15,7 @@ class UserDashboard < Administrate::BaseDashboard
     email: Field::String,
     password: Field::String,
     created_at: Field::DateTime,
-    updated_at: Field::DateTime,
+    updated_at: Field::DateTime
   }.freeze
 
   # COLLECTION_ATTRIBUTES
