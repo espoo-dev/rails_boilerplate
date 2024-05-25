@@ -2,6 +2,7 @@
 <script>
 import { ref } from 'vue'
 import { doLoginApi } from "../services/authApi";
+import { getUsersApi } from "../services/usersApi";
 
 export default {
   setup() {
@@ -14,6 +15,8 @@ export default {
       doLoginApi(username.value, password.value).then(
         (result) => {
           localStorage.token = result.data.token;
+
+          getUsersApi()
         },
         (error) => {
           console.error(error.response.data.error_message);
