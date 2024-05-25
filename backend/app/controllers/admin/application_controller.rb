@@ -23,13 +23,13 @@ module Admin
       # authorized = AdminDashboardPolicy.new(current_user, nil).send(:admin_dashboard?)
       # raise Pundit::NotAuthorizedError unless authorized
     end
+
     private
 
     def user_not_authorized(exception)
       policy_name = exception.policy.class.to_s.underscore
-      flash[:error] = t "#{policy_name}.#{exception.query}", scope: "pundit", default: :default
-      render file: "#{Rails.root}/public/401.html", layout: false, status: 401
-
+      flash.now[:error] = t "#{policy_name}.#{exception.query}", scope: "pundit", default: :default
+      render file: Rails.public_path.join("401.html").to_s, layout: false, status: :unauthorized
     end
   end
 end
