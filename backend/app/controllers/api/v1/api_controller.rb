@@ -6,11 +6,15 @@ module Api
       include Pundit::Authorization
       after_action :verify_authorized
 
-      before_action :authenticate_user!
+      before_action :authenticate_devise_api_token!
 
       rescue_from Pundit::NotAuthorizedError, with: :render_unauthorized
       rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity
       rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
+
+      def current_user
+        current_devise_api_user
+      end
 
       def render_unauthorized(message = "Unauthorized")
         render json: { error: message }, status: :unauthorized
