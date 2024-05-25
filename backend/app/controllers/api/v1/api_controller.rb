@@ -7,6 +7,7 @@ module Api
       after_action :verify_authorized
 
       before_action :authenticate_devise_api_token!
+      before_action :set_paper_trail_whodunnit
 
       rescue_from Pundit::NotAuthorizedError, with: :render_unauthorized
       rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity

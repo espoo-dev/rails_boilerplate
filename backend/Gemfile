@@ -97,6 +97,12 @@ gem "kaminari"
 # Minimal authorization through OO design and pure Ruby classes
 gem "pundit"
 
+# Track changes to your models, for auditing or versioning.
+gem "paper_trail"
+
+# A Rails engine that helps you put together a super-flexible admin dashboard.
+gem "administrate"
+
 group :development, :test do
   gem "bullet"
 

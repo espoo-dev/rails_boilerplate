@@ -31,5 +31,8 @@ module App
 
     config.autoload_paths << "#{root}/packs/oauth/app"
     config.autoload_paths << "#{root}/packs/demo_pack/app"
+    config.active_record.yaml_column_permitted_classes = [Symbol, Date, Time, ActiveSupport::TimeWithZone,
+                                                          ActiveSupport::TimeZone
+]
   end
 end
