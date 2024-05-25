@@ -23,8 +23,6 @@ RSpec.describe "Users" do
         end
 
         context "when has pagination via page and per_page" do
-          let(:do_request) {  }
-
           let(:json_response) { response.parsed_body }
 
           let(:params) do

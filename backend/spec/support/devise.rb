@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Devise
   def auth_headers_for(user)
     Devise::Api::TokensService::Create.new(resource_owner: user).call
