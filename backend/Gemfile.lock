@@ -93,6 +93,9 @@ GEM
       minitest (>= 5.1)
       mutex_m
       tzinfo (~> 2.0)
+    acts_as_paranoid (0.10.0)
+      activerecord (>= 6.1, < 7.2)
+      activesupport (>= 6.1, < 7.2)
     addressable (2.8.6)
       public_suffix (>= 2.0.2, < 6.0)
     administrate (0.20.1)
@@ -568,6 +571,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers
+  acts_as_paranoid
   administrate
   bootsnap
   brakeman
