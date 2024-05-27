@@ -106,6 +106,9 @@ GEM
       kaminari (~> 1.2.2)
       sassc-rails (~> 2.1)
       selectize-rails (~> 0.6)
+    annotate (3.2.0)
+      activerecord (>= 3.2, < 8.0)
+      rake (>= 10.4, < 14.0)
     ast (2.4.2)
     base64 (0.1.1)
     bcrypt (3.1.20)
@@ -573,6 +576,7 @@ DEPENDENCIES
   active_model_serializers
   acts_as_paranoid
   administrate
+  annotate
   bootsnap
   brakeman
   bullet
