@@ -136,7 +136,7 @@ group :development do
   gem "spring"
 
   # Annotate Rails classes with schema and routes info
-  gem 'annotate'
+  gem "annotate"
 end
 
 group :test do
