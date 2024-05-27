@@ -15,8 +15,8 @@ module DemoPack
 
       def search
         query = search_params[:query]
-        @users = UsersIndex.query(query_string: { fields: [:email], query: query, default_operator: "and" })
-        render json: @users.objects.to_json, status: :ok
+        users = UsersIndex.query(query_string: { fields: [:email], query: query, default_operator: "and" })
+        render json: users.objects.to_json, status: :ok
       end
 
       private

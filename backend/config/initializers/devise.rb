@@ -311,7 +311,9 @@ end
 # To avoid DEPRECATION WARNING: `application.secrets` is deprecated in favor of `Rails.application.credentials`
 # and will be removed in Rails 7.2.
 module Devise
+  # :reek:InstanceVariableAssumption
   class SecretKeyFinder
+    # :reek:UtilityFunction and :reek:InstanceVariableAssumption
     def find
       @application.secret_key_base
     end

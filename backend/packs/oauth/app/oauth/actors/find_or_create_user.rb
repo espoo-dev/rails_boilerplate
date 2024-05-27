@@ -33,6 +33,7 @@ module Oauth
         end
       end
 
+      # :reek:UtilityFunction
       def strava_generated_email(oauth_provider)
         "#{oauth_provider.uid}@strava_unknown_email.com"
       end
