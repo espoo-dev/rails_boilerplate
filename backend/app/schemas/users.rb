@@ -2,7 +2,7 @@
 
 module Users
   IndexSchema = Dry::Schema.Params do
-    required(:page).filled(:integer)
+    optional(:page).filled(:integer)
     optional(:per_page).filled(:integer)
   end
 end
