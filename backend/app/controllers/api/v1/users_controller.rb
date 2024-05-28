@@ -13,12 +13,16 @@ module Api
 
       private
 
+      def user_index_schema
+        @user_index_schema ||= Users::IndexSchema.call(params.permit(:page, :per_page).to_h)
+      end
+
       def page
-        params[:page]
+        user_index_schema.output[:page]
       end
 
       def per_page
-        params[:per_page]
+        user_index_schema.output[:per_page]
       end
     end
   end
