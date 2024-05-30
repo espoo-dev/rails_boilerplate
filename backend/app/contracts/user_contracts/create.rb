@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module UserContracts
   class Create < ApplicationContract
     params do

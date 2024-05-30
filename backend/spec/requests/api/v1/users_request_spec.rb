@@ -119,14 +119,10 @@ RSpec.describe "Users" do
         end
 
         context "when parameters are invalid" do
-          let(:user_params) do
-            {
-              email: user.email
-            }
-          end
+          let(:user_params) { {} }
 
           let(:expected_response) do
-            { error: "Password is missing" }
+            { error: "Email is missing, Password is missing" }
           end
 
           it { expect(json_response).to match(expected_response) }
