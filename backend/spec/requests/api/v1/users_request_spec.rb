@@ -74,4 +74,78 @@ RSpec.describe "Users" do
       end
     end
   end
+
+  describe "POST /api/v1/users" do
+    before do
+      post "/api/v1/users", params: user_params, headers:
+    end
+
+    context "when user authenticated" do
+      let(:headers) { auth_headers_for(user) }
+      let!(:user) { create(:user, admin: true) }
+
+      context "when data is valid" do
+        let(:user_params) do
+          {
+            email: "user@email.com",
+            password: "password"
+          }
+        end
+
+        let(:expected_response) do
+          { email: user_params[:email], id: anything }
+        end
+
+        it { expect(json_response[:id]).not_to be_nil }
+        it { expect(json_response).to match(expected_response) }
+        it { expect(response).to have_http_status(:created) }
+      end
+
+      context "when data is not valid" do
+        context "when validation fail" do
+          let(:user_params) do
+            {
+              email: user.email,
+              password: "password"
+            }
+          end
+
+          let(:expected_response) do
+            { error: "Validation failed: Email has already been taken" }
+          end
+
+          it { expect(json_response).to match(expected_response) }
+          it { expect(response).to have_http_status(:unprocessable_entity) }
+        end
+
+        context "when parameters are invalid" do
+          let(:user_params) do
+            {
+              email: user.email
+            }
+          end
+
+          let(:expected_response) do
+            { error: "Password is missing" }
+          end
+
+          it { expect(json_response).to match(expected_response) }
+          it { expect(response).to have_http_status(:bad_request) }
+        end
+      end
+    end
+
+    context "when user unauthenticated" do
+      let(:headers) { {} }
+
+      let(:user_params) do
+        {
+          email: "user@email.com",
+          password: "password"
+        }
+      end
+
+      it { expect(response).to have_http_status(:created) }
+    end
+  end
 end

@@ -109,6 +109,9 @@ gem "acts_as_paranoid"
 # Coercion and validation for data structures
 gem "dry-schema"
 
+# Validation library with type-safe schemas and rules
+gem "dry-validation"
+
 group :development, :test do
   gem "bullet"
 
