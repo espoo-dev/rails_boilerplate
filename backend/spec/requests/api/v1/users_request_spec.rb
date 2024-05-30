@@ -118,7 +118,7 @@ RSpec.describe "Users" do
           it { expect(response).to have_http_status(:unprocessable_entity) }
         end
 
-        context "when parameters are invalid" do
+        context "when parameters are missing" do
           let(:user_params) { {} }
 
           let(:expected_response) do
