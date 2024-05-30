@@ -30,4 +30,13 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  dry_validation:
+    errors:
+      rules:
+        email:
+          key?: "Email is missing"
+          filled?: "Email must be filled"
+        password:
+          key?: "Password is missing"
+          filled?: "Password must be filled"
+
