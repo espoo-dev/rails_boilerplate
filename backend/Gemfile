@@ -106,9 +106,6 @@ gem "administrate"
 # ActiveRecord plugin allowing you to hide and restore records without actually deleting them.
 gem "acts_as_paranoid"
 
-# Coercion and validation for data structures
-gem "dry-schema"
-
 # Validation library with type-safe schemas and rules
 gem "dry-validation"
 

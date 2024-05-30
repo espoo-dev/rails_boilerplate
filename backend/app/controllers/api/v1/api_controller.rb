@@ -33,6 +33,10 @@ module Api
       def render_bad_request(exception)
         render json: { error: exception.message }, status: :bad_request
       end
+
+      def permitted_params(*keys)
+        params.permit(keys).to_h.with_indifferent_access
+      end
     end
   end
 end

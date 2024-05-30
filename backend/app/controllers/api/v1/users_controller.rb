@@ -14,7 +14,7 @@ module Api
       end
 
       def create
-        user = User.new(user_create_schema)
+        user = User.new(user_create_contract)
 
         authorize(user)
 
@@ -25,26 +25,20 @@ module Api
 
       private
 
-      def user_index_schema
-        @user_index_schema ||= Users::IndexSchema.call(params.permit(:page, :per_page).to_h)
+      def user_index_contract
+        @user_index_contract ||= UserContracts::Index.call(permitted_params(:page, :per_page))
       end
 
-      def user_create_schema
-        permitted_params = params.permit(:email, :password).to_h.with_indifferent_access
-        @create_user_contract ||= UserContracts::Create.new.call(permitted_params)
-        if @create_user_contract.errors.messages.any?
-          error_message = @create_user_contract.errors.to_h.map { _1[1].join(", ") }.join(", ")
-          raise InvalidContractError, error_message
-        end
-        @create_user_contract.to_h
+      def user_create_contract
+        UserContracts::Create.call(permitted_params(:email, :password))
       end
 
       def page
-        user_index_schema.output[:page]
+        user_index_contract[:page]
       end
 
       def per_page
-        user_index_schema.output[:per_page]
+        user_index_contract[:per_page]
       end
     end
   end

@@ -592,7 +592,6 @@ DEPENDENCIES
   devise (~> 4.9)
   devise-api!
   dotenv-rails
-  dry-schema
   dry-validation
   factory_bot_rails
   graphiql-rails
