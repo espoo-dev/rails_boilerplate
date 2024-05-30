@@ -31,7 +31,7 @@ module Api
 
       def user_create_schema
         permitted_params = params.permit(:email, :password).to_h.with_indifferent_access
-        @create_user_contract ||= CreateUserContract.new.call(permitted_params)
+        @create_user_contract ||= UserContracts::Create.new.call(permitted_params)
         if @create_user_contract.errors.messages.any?
           error_message = @create_user_contract.errors.to_h.map { _1[1].join(", ") }.join(", ")
           raise InvalidContractError, error_message
