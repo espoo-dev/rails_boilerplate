@@ -21,4 +21,7 @@ Rails.application.routes.draw do
       resources :users, only: %i[index create]
     end
   end
+  devise_scope :user do
+    post "/api/v1/tokens", to: "devise/api/tokens#sign_in", as: "api_v1_sign_in_user_token"
+  end
 end
