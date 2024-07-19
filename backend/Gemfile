@@ -109,6 +109,12 @@ gem "acts_as_paranoid"
 # Validation library with type-safe schemas and rules
 gem "dry-validation"
 
+# An HTTP client library abstraction layer
+gem "faraday"
+
+# Library for stubbing and setting expectations on HTTP requests in Ruby.
+gem "webmock"
+
 group :development, :test do
   gem "bullet"
 
