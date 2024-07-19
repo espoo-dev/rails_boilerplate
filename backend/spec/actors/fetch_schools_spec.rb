@@ -10,7 +10,7 @@ RSpec.describe FetchSchools, type: :actor do
       let(:valid_params) do
         {
           api_key:,
-          fields: "id,school.name",
+          fields: "id,school.name,location",
           page: 0,
           "school.name" => school_name
         }
@@ -21,7 +21,9 @@ RSpec.describe FetchSchools, type: :actor do
       let(:schools) do
         [
           { "id" => "1",
-            "school.name" => school_name }
+            "school.name" => school_name,
+            "location.lat" => 42.374471,
+            "location.lon" => -71.118313 }
         ]
       end
 

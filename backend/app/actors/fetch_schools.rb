@@ -24,7 +24,7 @@ class FetchSchools < Actor
   def params
     {
       api_key:,
-      fields: "id,school.name",
+      fields: "id,school.name,location",
       page: 0,
       "school.name" => school_name_like
     }
