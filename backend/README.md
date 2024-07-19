@@ -8,8 +8,9 @@
 - cd backend
 - create a .env file based on .env.example and copy the content of .env.example to .env (`$ cp .env.example .env`)
 - docker compose build
-- docker compose run web bundle install
-- docker compose run web bin/rails db:setup
+- docker compose up
+- docker compose exec web bundle install
+- docker compose exec web bin/rails db:setup
 - bin/dev
 - visit http://localhost:3000/
 
