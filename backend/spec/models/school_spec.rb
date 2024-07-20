@@ -13,21 +13,21 @@ RSpec.describe School do
     it { is_expected.to validate_presence_of(:lng) }
   end
 
-  describe '.from_hash' do
-    let(:school_hash) {
+  describe ".from_hash" do
+    let(:school_hash) do
       {
         "school.name" => "Harvard University",
         "id" => 166_027,
         "location.lat" => 42.374471,
         "location.lon" => -71.118313
       }
-    }
+    end
 
-    it 'initializes attributes from hash' do
-      school = School.from_hash(school_hash)
+    it "initializes attributes from hash" do
+      school = described_class.from_hash(school_hash)
 
       expect(school.name).to eq("Harvard University")
-      expect(school.external_id).to eq(166027)
+      expect(school.external_id).to eq(166_027)
       expect(school.lat).to eq("42.374471")
       expect(school.lng).to eq("-71.118313")
       expect(school.payload).to eq(school_hash.to_json)

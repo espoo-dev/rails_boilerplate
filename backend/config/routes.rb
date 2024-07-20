@@ -22,6 +22,7 @@ Rails.application.routes.draw do
       resources :schools, only: %i[index] do
         collection do
           get "index_fetch_only"
+          get "index_fetch_and_store_on_db"
         end
       end
     end
