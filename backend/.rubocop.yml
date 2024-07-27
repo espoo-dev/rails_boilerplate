@@ -102,6 +102,9 @@ RSpec/AnyInstance:
 RSpec/ImplicitSubject:
   EnforcedStyle: single_statement_only
 
+RSpec/VerifiedDoubles:
+  Enabled: false
+
 Style/Documentation:
   Enabled: false
 

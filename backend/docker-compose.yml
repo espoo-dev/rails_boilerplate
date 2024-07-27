@@ -83,18 +83,6 @@ services:
       interval: 1s
       timeout: 3s
       retries: 30
-  redis_cache:
-    image: docker.io/redis:latest
-    hostname: redis
-    command: redis-server
-    ports:
-      - "6380:6379"
-    healthcheck:
-      test: redis-cli ping
-      interval: 1s
-      timeout: 3s
-      retries: 30
-
 volumes:
   backend_data:
   database-data:

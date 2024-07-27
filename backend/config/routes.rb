@@ -19,8 +19,10 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
       resources :users, only: %i[index create]
+      resources :schools, only: %i[index]
     end
   end
+
   devise_scope :user do
     post "/api/v1/tokens", to: "devise/api/tokens#sign_in", as: "api_v1_sign_in_user_token"
   end
