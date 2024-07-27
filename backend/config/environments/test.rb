@@ -33,8 +33,13 @@ Rails.application.configure do
 
   # Show full error reports and disable caching.
   config.consider_all_requests_local = true
-  config.action_controller.perform_caching = false
-  config.cache_store = :null_store
+  config.cache_store = if ENV["REDIS_CACHE_URL"]
+    config.action_controller.perform_caching = true
+    [:redis_cache_store, { url: ENV["REDIS_CACHE_URL"] }]
+  else
+    config.action_controller.perform_caching = false
+    :null_store
+  end
 
   # Raise exceptions instead of rendering exception templates.
   config.action_dispatch.show_exceptions = :none

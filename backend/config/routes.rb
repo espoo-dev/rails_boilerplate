@@ -19,12 +19,7 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
       resources :users, only: %i[index create]
-      resources :schools, only: %i[index] do
-        collection do
-          get "index_fetch_only"
-          get "index_fetch_and_store_on_db"
-        end
-      end
+      resources :schools, only: %i[index]
     end
   end
 

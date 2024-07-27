@@ -3,7 +3,7 @@
 class FetchSchools < Actor
   FETCH_SCHOOLS_URL = "https://api.data.gov/ed/collegescorecard/v1/schools"
 
-  input :school_name_like
+  input :school_index_contract
 
   output :data
 
@@ -26,7 +26,7 @@ class FetchSchools < Actor
       api_key:,
       fields: "id,school.name,location",
       page: 0,
-      "school.name" => school_name_like
+      "school.name" => school_index_contract[:school_name_like]
     }
   end
 
