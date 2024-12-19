@@ -3,30 +3,28 @@
 require "sidekiq/web"
 
 Rails.application.routes.draw do
-  namespace :admin do
-    resources :users
-
-    root to: "users#index"
-  end
-  extend DemoPackRoutes
-  extend OauthRoutes
   mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/graphql" if Rails.env.development?
   post "/graphql", to: "graphql#execute"
   mount Sidekiq::Web => "/sidekiq"
   mount Rswag::Ui::Engine => "/api-docs"
   mount Rswag::Api::Engine => "/api-docs"
+  devise_for :users
+  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+
+  # Defines the root path route ("/")
+  # root "articles#index"
+
+  get "/public_method", to: "hello_world#public_method"
+  get "/private_method", to: "hello_world#private_method"
+  get "/search", to: "hello_world#search"
 
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
       get "/public_method", to: "hello_world#public_method"
       get "/private_method", to: "hello_world#private_method"
       post "/import", to: "handle_file#import"
-      resources :users, only: %i[index create]
-      resources :schools, only: %i[index]
-    end
-  end
 
-  devise_scope :user do
-    post "/api/v1/tokens", to: "devise/api/tokens#sign_in", as: "api_v1_sign_in_user_token"
+      resources :users, only: [:index]
+    end
   end
 end
