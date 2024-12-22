@@ -5,7 +5,7 @@ require "rails_helper"
 RSpec.describe "HandleFiles" do
   describe "POST api/v1/import" do
     context "when CSV file is valid" do
-      let(:csv_file) { fixture_file_upload(Rails.root.join('spec/fixtures/files/valid_file.csv'), 'text/csv') }
+      let(:csv_file) { fixture_file_upload(Rails.root.join("spec/fixtures/files/valid_file.csv"), "text/csv") }
 
       it "returns status ok" do
         post "/api/v1/import", params: { file: csv_file }
@@ -19,7 +19,7 @@ RSpec.describe "HandleFiles" do
     end
 
     context "when CSV file is empty" do
-      let(:empty_csv_file) { fixture_file_upload(Rails.root.join('spec/fixtures/files/empty_file.csv'), 'text/csv') }
+      let(:empty_csv_file) { fixture_file_upload(Rails.root.join("spec/fixtures/files/empty_file.csv"), "text/csv") }
 
       it "returns status ok" do
         post "/api/v1/import", params: { file: empty_csv_file }
@@ -33,7 +33,7 @@ RSpec.describe "HandleFiles" do
     end
 
     context "when file is not a CSV" do
-      let(:non_csv_file) { fixture_file_upload(Rails.root.join('spec/fixtures/files/non_csv_file.txt'), 'text/csv') }
+      let(:non_csv_file) { fixture_file_upload(Rails.root.join("spec/fixtures/files/non_csv_file.txt"), "text/csv") }
 
       it "returns status ok" do
         post "/api/v1/import", params: { file: non_csv_file }
