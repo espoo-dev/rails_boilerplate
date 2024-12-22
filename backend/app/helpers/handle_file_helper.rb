@@ -1,5 +1,6 @@
 # frozen_string_literal: true
-require 'csv'
+
+require "csv"
 
 module HandleFileHelper
   def set_rows_to_json(file)
@@ -17,7 +18,7 @@ module HandleFileHelper
 
   def set_response(parsed_file)
     json_response = {}
-    parsed_file.each_with_index { |row,index| json_response.merge!("row_#{index + 1}": encode_string(row.join(','))) }
+    parsed_file.each_with_index { |row ,index| json_response.merge!("row_#{ index + 1 }": encode_string(row.join(","))) }
 
     json_response
   end
