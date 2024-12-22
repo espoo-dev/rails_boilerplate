@@ -16,7 +16,6 @@ RSpec.describe "HandleFiles" do
       end
     end
 
-
     context 'when CSV file is empty' do
       let(:empty_csv_file) { fixture_file_upload(Rails.root.join('spec', 'fixtures', 'files', 'empty_file.csv'), 'text/csv') }
   
