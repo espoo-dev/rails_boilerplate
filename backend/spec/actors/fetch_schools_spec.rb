@@ -31,13 +31,14 @@ RSpec.describe FetchSchools, type: :actor do
 
     let(:call) { described_class.result(school_index_contract:) }
 
+    before do
+      allow_any_instance_of(described_class).to receive(:api_key).and_return(api_key)
+      stub_request(:get, described_class::FETCH_SCHOOLS_URL)
+        .with(query: valid_params)
+        .to_return(status: 200, body: success_response, headers: { "Content-Type" => "application/json" })
+    end
+
     context "when setup is valid" do
-      before do
-        allow_any_instance_of(described_class).to receive(:api_key).and_return(api_key)
-        stub_request(:get, described_class::FETCH_SCHOOLS_URL)
-          .with(query: valid_params)
-          .to_return(status: 200, body: success_response, headers: { "Content-Type" => "application/json" })
-      end
 
       it "is successful" do
         expect(call.success?).to be true
@@ -57,10 +58,10 @@ RSpec.describe FetchSchools, type: :actor do
         it "is failure" do
           expect(call.failure?).to be true
         end
-      end
 
-      it "returns error object" do
-        expect(call.error).to eq(:missing_college_score_card_api_key)
+        it "returns error object" do
+          expect(call.error).to eq(:missing_college_score_card_api_key)
+        end
       end
     end
   end

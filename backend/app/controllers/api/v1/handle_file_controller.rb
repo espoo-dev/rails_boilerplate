@@ -6,7 +6,7 @@ module Api
       include HandleFileHelper
 
       def import
-        rows = set_rows_to_json(params[:file].tempfile)
+        rows = rows_to_json(params[:file].tempfile)
         render json: { file_rows: rows }, status: :ok
       end
     end
