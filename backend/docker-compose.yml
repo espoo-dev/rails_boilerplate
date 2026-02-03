@@ -73,11 +73,11 @@ services:
   redis:
     image: docker.io/redis:latest
     hostname: redis
-    command: redis-server
+    command: redis-server --port 6380
     ports:
-      - "6379:6379"
+      - "6380:6380"
     healthcheck:
-      test: redis-cli ping
+      test: redis-cli -p 6380 ping
       interval: 1s
       timeout: 3s
       retries: 30
