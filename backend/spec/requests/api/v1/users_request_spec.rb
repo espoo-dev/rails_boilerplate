@@ -55,7 +55,7 @@ RSpec.describe "Users" do
         it { expect(response).to have_http_status(:unauthorized) }
 
         it {
-          expect(response.parsed_body["error"]).to eq("not allowed to index? this User::ActiveRecord_Relation")
+          expect(response.parsed_body["error"]).to eq("not allowed to UserPolicy#index? this User::ActiveRecord_Relation")
         }
       end
     end

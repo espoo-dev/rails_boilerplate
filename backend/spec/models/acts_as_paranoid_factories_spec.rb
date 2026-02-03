@@ -5,8 +5,6 @@ require "rails_helper"
 
 RSpec.describe "ApplicationRecord" do
   FactoryBot.factories.each do |factory|
-    model_class = factory.build_class
-
-    it_behaves_like "acts_as_paranoid", model_class
+    it_behaves_like "acts_as_paranoid", factory.build_class
   end
 end

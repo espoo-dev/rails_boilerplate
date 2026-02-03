@@ -154,10 +154,10 @@ GEM
     debug (1.11.1)
       irb (~> 1.10)
       reline (>= 0.3.8)
-    devise (4.9.4)
+    devise (5.0.0)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
-      railties (>= 4.1.0)
+      railties (>= 7.0)
       responders
       warden (~> 1.2.3)
     diff-lcs (1.6.2)
@@ -453,14 +453,14 @@ GEM
     rspec-mocks (3.13.7)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.13.0)
-    rspec-rails (6.0.4)
-      actionpack (>= 6.1)
-      activesupport (>= 6.1)
-      railties (>= 6.1)
-      rspec-core (~> 3.12)
-      rspec-expectations (~> 3.12)
-      rspec-mocks (~> 3.12)
-      rspec-support (~> 3.12)
+    rspec-rails (7.1.1)
+      actionpack (>= 7.0)
+      activesupport (>= 7.0)
+      railties (>= 7.0)
+      rspec-core (~> 3.13)
+      rspec-expectations (~> 3.13)
+      rspec-mocks (~> 3.13)
+      rspec-support (~> 3.13)
     rspec-sidekiq (5.2.0)
       rspec-core (~> 3.0)
       rspec-expectations (~> 3.0)
@@ -615,7 +615,7 @@ DEPENDENCIES
   connection_pool (~> 2.4)
   csv
   debug
-  devise (~> 4.9)
+  devise (~> 5.0)
   devise-api!
   dotenv-rails
   dry-validation
@@ -639,7 +639,7 @@ DEPENDENCIES
   rails (~> 8.0)
   redis
   reek
-  rspec-rails (~> 6.0.0)
+  rspec-rails (~> 7.0)
   rspec-sidekiq
   rswag
   rubocop (~> 1.69)
