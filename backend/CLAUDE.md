@@ -38,7 +38,7 @@ docker compose exec web bundle exec bin/packwerk check
 
 ## Architecture Overview
 
-Rails 7.1.3 API with Ruby 3.4.8, using Docker (PostgreSQL 15, Redis, Elasticsearch 8.10.2, Sidekiq).
+Rails 8.1.2 API with Ruby 3.4.8, using Docker (PostgreSQL 15, Redis, Elasticsearch 8.10.2, Sidekiq).
 
 ### Key Patterns
 

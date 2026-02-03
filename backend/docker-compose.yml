@@ -35,7 +35,7 @@ services:
     volumes:
       - database-data:/var/lib/postgresql/data
     ports:
-      - "5432:5432"
+      - "5433:5432"
     healthcheck:
       test: pg_isready -U postgres -h 127.0.0.1
       interval: 5s
@@ -60,7 +60,7 @@ services:
     <<: *backend
     hostname: web-app-container
     ports:
-      - "3000:3000"
+      - "3001:3000"
     depends_on:
       elasticsearch:
         condition: service_started
