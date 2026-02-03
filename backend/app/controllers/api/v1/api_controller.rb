@@ -4,6 +4,7 @@ module Api
   module V1
     class ApiController < ActionController::API
       include Pundit::Authorization
+
       after_action :verify_authorized
 
       before_action :authenticate_devise_api_token!
@@ -23,7 +24,7 @@ module Api
       end
 
       def render_unprocessable_entity(exception)
-        render json: { error: exception.message }, status: :unprocessable_entity
+        render json: { error: exception.message }, status: :unprocessable_content
       end
 
       def render_not_found(exception)

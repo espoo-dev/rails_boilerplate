@@ -135,6 +135,8 @@ end
 group :development do
   # To ensure code consistency [https://docs.rubocop.org]
   gem "rubocop", "~> 1.69"
+  gem "rubocop-capybara", "~> 2.21"
+  gem "rubocop-factory_bot", "~> 2.26"
   gem "rubocop-graphql", "~> 1.5"
   gem "rubocop-performance", "~> 1.23"
   gem "rubocop-rails", "~> 2.27"

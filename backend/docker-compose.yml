@@ -60,7 +60,7 @@ services:
     <<: *backend
     hostname: web-app-container
     ports:
-      - "3001:3000"
+      - "3002:3000"
     depends_on:
       elasticsearch:
         condition: service_started
