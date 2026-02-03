@@ -1,10 +1,8 @@
-version: "3"
-
 x-app: &app
   build:
     context: .
     args:
-      RUBY_VERSION: "3.3.1"
+      RUBY_VERSION: "3.4.8"
       PG_MAJOR: "15"
       NODE_MAJOR: "18"
   environment: &env
@@ -37,7 +35,7 @@ services:
     volumes:
       - database-data:/var/lib/postgresql/data
     ports:
-      - "5432:5432"
+      - "5433:5432"
     healthcheck:
       test: pg_isready -U postgres -h 127.0.0.1
       interval: 5s
@@ -62,7 +60,7 @@ services:
     <<: *backend
     hostname: web-app-container
     ports:
-      - "3000:3000"
+      - "3002:3000"
     depends_on:
       elasticsearch:
         condition: service_started
@@ -75,11 +73,11 @@ services:
   redis:
     image: docker.io/redis:latest
     hostname: redis
-    command: redis-server
+    command: redis-server --port 6380
     ports:
-      - "6379:6379"
+      - "6380:6380"
     healthcheck:
-      test: redis-cli ping
+      test: redis-cli -p 6380 ping
       interval: 1s
       timeout: 3s
       retries: 30

@@ -39,7 +39,6 @@ RSpec.describe FetchSchools, type: :actor do
     end
 
     context "when setup is valid" do
-
       it "is successful" do
         expect(call.success?).to be true
       end

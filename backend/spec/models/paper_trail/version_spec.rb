@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe PaperTrail::Version, versioning: true do
+RSpec.describe PaperTrail::Version, :versioning do
   let(:user) { create(:user, email: "user@email.com") }
 
   context "when create object in database" do

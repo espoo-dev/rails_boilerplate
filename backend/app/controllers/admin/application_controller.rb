@@ -15,6 +15,7 @@ module Admin
     rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
     include Pundit::Authorization
+
     after_action :verify_authorized
 
     def authenticate_admin
