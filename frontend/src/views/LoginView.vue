@@ -1,52 +1,35 @@
+<script setup>
+import LoginForm from '@/components/LoginForm.vue'
+import { useAuth } from '@/composables/useAuth'
 
-<script>
-import { ref } from 'vue'
-import { doLoginApi } from "../services/authApi";
-import { getUsersApi } from "../services/usersApi";
+const { login, isLoading, error, isAuthenticated } = useAuth()
 
-export default {
-  setup() {
-    // state
-    const username = ref("admin@email.com")
-    const password = ref("password")
-
-    // methods
-    const doLogin = () => {
-      doLoginApi(username.value, password.value).then(
-        (result) => {
-          localStorage.token = result.data.token;
-
-          getUsersApi()
-        },
-        (error) => {
-          console.error(error.response.data.error_message);
-        }
-      );
-    }
-
-    return {
-      username,
-      password,
-      doLogin,
-      doLoginApi
-    }
-  },
+async function onSubmit({ email, password }) {
+  try {
+    await login(email, password)
+  } catch {
+    // useAuth has already populated the reactive `error` ref for the form.
+  }
 }
 </script>
 
 <template>
-  <div class="login">
-    <h2>Login</h2>
-    <form @submit.prevent="">
-      <div>
-        <label for="username">Username:</label>
-        <input type="text" id="username" v-model="username" required />
-      </div>
-      <div>
-        <label for="password">Password:</label>
-        <input type="password" id="password" v-model="password" required />
-      </div>
-      <button @click="doLogin">Login</button>
-    </form>
-  </div>
+  <section class="flex flex-col items-center gap-6 py-12">
+    <h2 class="text-2xl font-semibold text-slate-800">Login</h2>
+
+    <p
+      v-if="isAuthenticated"
+      class="text-emerald-700"
+      data-testid="login-success"
+    >
+      You are signed in.
+    </p>
+
+    <LoginForm
+      v-else
+      :loading="isLoading"
+      :error="error"
+      @submit="onSubmit"
+    />
+  </section>
 </template>
