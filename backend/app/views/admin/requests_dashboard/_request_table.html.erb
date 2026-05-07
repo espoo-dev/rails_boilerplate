@@ -1,0 +1,26 @@
+<table class="collection-data" style="width: 100%; border-collapse: collapse;">
+  <thead>
+    <tr>
+      <th style="text-align: left; padding: 0.5rem;">Date</th>
+      <th style="text-align: left; padding: 0.5rem;">HTTP Method</th>
+      <th style="text-align: left; padding: 0.5rem;">Endpoint</th>
+      <th style="text-align: left; padding: 0.5rem;">Response Code</th>
+      <th style="text-align: right; padding: 0.5rem;">Count</th>
+      <th style="text-align: left; padding: 0.5rem;">First Request</th>
+      <th style="text-align: left; padding: 0.5rem;">Last Request</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% requests.each do |row| %>
+      <tr>
+        <td style="padding: 0.5rem;"><%= row.request_date %></td>
+        <td style="padding: 0.5rem;"><%= row.http_method %></td>
+        <td style="padding: 0.5rem;"><%= row.endpoint %></td>
+        <td style="padding: 0.5rem;"><%= row.response_code %></td>
+        <td style="padding: 0.5rem; text-align: right;"><%= row.request_count %></td>
+        <td style="padding: 0.5rem;"><%= row.first_request_at&.strftime("%H:%M:%S") %></td>
+        <td style="padding: 0.5rem;"><%= row.last_request_at&.strftime("%H:%M:%S") %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

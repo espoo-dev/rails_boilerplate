@@ -1,0 +1,101 @@
+<% content_for(:title) { "Request logs by payload" } %>
+
+<header class="main-content__header">
+  <h1 class="main-content__page-title">Request logs by payload</h1>
+  <p style="color: #64748b; margin-top: 0.25rem;">Non-2xx API request logs from the last 10 days, grouped by <%= @group_by %>, response code, day, and user email.</p>
+</header>
+
+<section class="main-content__body">
+  <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap;">
+    <form method="get" action="<%= admin_request_logs_by_payload_index_path %>" style="display: flex; align-items: center; gap: 0.5rem;">
+      <label for="group_by" style="font-weight: 600; color: #1e293b;">Group by:</label>
+      <select name="group_by" id="group_by" onchange="this.form.submit()" style="padding: 0.4rem 0.75rem; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.875rem;">
+        <option value="payload" <%= "selected" if @group_by == "payload" %>>Payload</option>
+        <option value="response" <%= "selected" if @group_by == "response" %>>Response</option>
+      </select>
+      <% if @selected_date.present? %>
+        <input type="hidden" name="date" value="<%= @selected_date %>">
+      <% end %>
+    </form>
+
+    <% if @selected_date.present? %>
+      <span style="display: inline-flex; align-items: center; gap: 0.5rem; background: #e0f2fe; color: #0369a1; padding: 0.35rem 0.75rem; border-radius: 6px; font-size: 0.875rem; font-weight: 500;">
+        Filtered: <%= @selected_date %>
+        <a href="<%= admin_request_logs_by_payload_index_path(group_by: @group_by) %>" style="color: #0369a1; text-decoration: none; font-weight: bold;" title="Clear filter">&times;</a>
+      </span>
+    <% end %>
+  </div>
+
+  <% if @grouped_logs.empty? %>
+    <p>No non-2xx API request logs found<%= " for #{@selected_date}" if @selected_date.present? %>.</p>
+  <% else %>
+    <details open style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.5rem; margin-bottom: 1.5rem;">
+      <summary style="cursor: pointer; font-size: 1.125rem; font-weight: bold; color: #1e293b;">
+        Total non-2xx requests per day
+      </summary>
+      <table class="collection-data" style="width: 100%; border-collapse: collapse; margin-top: 1rem;">
+        <thead>
+          <tr>
+            <th style="text-align: left; padding: 0.5rem;">Date</th>
+            <th style="text-align: right; padding: 0.5rem;">Count</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @daily_totals.each do |date, count| %>
+            <tr>
+              <td style="padding: 0.5rem;">
+                <% if @selected_date == date.to_s %>
+                  <strong><%= date %></strong>
+                <% else %>
+                  <a href="<%= admin_request_logs_by_payload_index_path(group_by: @group_by, date: date) %>" style="color: #2563eb; text-decoration: none;"><%= date %></a>
+                <% end %>
+              </td>
+              <td style="padding: 0.5rem; text-align: right; font-weight: bold;"><%= count %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </details>
+
+    <details open style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.5rem;">
+      <summary style="cursor: pointer; font-size: 1.125rem; font-weight: bold; color: #1e293b;">
+        Grouped by <%= @group_by %>, response code, day, and user
+        <span style="font-weight: normal; color: #64748b; font-size: 0.875rem;">
+          (<%= @grouped_logs.size %> <%= @grouped_logs.size == 1 ? "group" : "groups" %>)
+        </span>
+      </summary>
+      <table class="collection-data" style="width: 100%; border-collapse: collapse; margin-top: 1rem;">
+        <thead>
+          <tr>
+            <th style="text-align: left; padding: 0.5rem;">Date</th>
+            <th style="text-align: left; padding: 0.5rem;">User email</th>
+            <th style="text-align: left; padding: 0.5rem;">App version</th>
+            <th style="text-align: center; padding: 0.5rem;">Response Code</th>
+            <th style="text-align: right; padding: 0.5rem;">Count</th>
+            <th style="text-align: left; padding: 0.5rem;"><%= @group_by.capitalize %></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @grouped_logs.each do |log| %>
+            <tr>
+              <td style="padding: 0.5rem;">
+                <a href="<%= admin_request_logs_by_payload_index_path(group_by: @group_by, date: log.request_date) %>" style="color: #2563eb; text-decoration: none;"><%= log.request_date %></a>
+              </td>
+              <td style="padding: 0.5rem;"><%= log.user_email %></td>
+              <td style="padding: 0.5rem; font-family: monospace; font-size: 0.8rem;"><%= log.app_version.presence || "—" %></td>
+              <td style="padding: 0.5rem; text-align: center;">
+                <span style="display: inline-block; padding: 0.15rem 0.5rem; border-radius: 4px; font-size: 0.8rem; font-weight: 600; background: <%= log.response_code.to_i >= 500 ? '#fef2f2; color: #991b1b' : '#fef9c3; color: #854d0e' %>;">
+                  <%= log.response_code %>
+                </span>
+              </td>
+              <td style="padding: 0.5rem; text-align: right; font-weight: bold;">
+                <a href="<%= details_admin_request_logs_by_payload_index_path(date: log.request_date, user_email: log.user_email, response_code: log.response_code, group_by: @group_by, group_digest: log.group_digest) %>" target="_blank" style="color: #2563eb; text-decoration: none;" title="View individual logs"><%= log.request_count %></a>
+              </td>
+              <td style="padding: 0.5rem; max-width: 40rem; font-family: monospace; font-size: 0.75rem; white-space: pre-wrap; word-break: break-word; vertical-align: top;"><%= JSON.pretty_generate(log.group_value) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </details>
+  <% end %>
+</section>
