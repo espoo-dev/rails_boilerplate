@@ -1,0 +1,42 @@
+<nav class="navigation" role="navigation">
+  <a href="/" class="navigation__logo">
+    <%= application_title %>
+  </a>
+
+  <div>
+    <ul class="navigation__links">
+      <% Administrate::Namespace.new(:admin).resources_with_index_route.reject { |r| %w[daily_overview requests_dashboard api_error_logs user_analytics user_lookup request_logs_by_payload].include?(r.to_s) }.each do |resource| %>
+        <li class="navigation__link">
+          <%= link_to(
+            display_resource_name(resource),
+            resource_index_route(resource),
+            class: "navigation__link"
+          ) %>
+        </li>
+      <% end %>
+
+      <li style="list-style: none; margin: 0.5rem 0;">
+        <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 0;">
+      </li>
+
+      <li class="navigation__link">
+        <%= link_to "Daily Overview", admin_daily_overview_index_path, class: "navigation__link" %>
+      </li>
+      <li class="navigation__link">
+        <%= link_to "Requests Dashboard", admin_requests_dashboard_index_path, class: "navigation__link" %>
+      </li>
+      <li class="navigation__link">
+        <%= link_to "Non-2xx API logs", admin_api_error_logs_path, class: "navigation__link" %>
+      </li>
+      <li class="navigation__link">
+        <%= link_to "User Analytics", admin_user_analytics_path, class: "navigation__link" %>
+      </li>
+      <li class="navigation__link">
+        <%= link_to "User Lookup", admin_user_lookup_index_path, class: "navigation__link" %>
+      </li>
+      <li class="navigation__link">
+        <%= link_to "Request logs by payload", admin_request_logs_by_payload_index_path, class: "navigation__link" %>
+      </li>
+    </ul>
+  </div>
+</nav>

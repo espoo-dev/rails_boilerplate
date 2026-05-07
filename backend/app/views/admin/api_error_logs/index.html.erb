@@ -1,0 +1,191 @@
+<% content_for(:title) { "Non-2xx API request logs" } %>
+
+<header class="main-content__header">
+  <h1 class="main-content__page-title">Non-2xx API request logs</h1>
+</header>
+
+<section class="main-content__body">
+  <form method="get" action="<%= admin_api_error_logs_path %>"
+        style="margin-bottom: 1rem; display: flex; flex-wrap: wrap; align-items: end; gap: 1rem;">
+    <div style="display: flex; flex-direction: column;">
+      <label for="email" style="font-weight: bold; font-size: 0.875rem;">User email</label>
+      <input type="text" name="email" id="email" value="<%= filters[:email] %>"
+             placeholder="user@example.com"
+             style="padding: 0.5rem; min-width: 260px;">
+    </div>
+    <div style="display: flex; flex-direction: column;">
+      <label for="start_date" style="font-weight: bold; font-size: 0.875rem;">From</label>
+      <input type="date" name="start_date" id="start_date"
+             value="<%= filters[:start_date]&.iso8601 %>" style="padding: 0.5rem;">
+    </div>
+    <div style="display: flex; flex-direction: column;">
+      <label for="end_date" style="font-weight: bold; font-size: 0.875rem;">To</label>
+      <input type="date" name="end_date" id="end_date"
+             value="<%= filters[:end_date]&.iso8601 %>" style="padding: 0.5rem;">
+    </div>
+    <div style="display: flex; flex-direction: column;">
+      <label for="app_version" style="font-weight: bold; font-size: 0.875rem;">App version</label>
+      <select name="app_version" id="app_version"
+              style="padding: 0.5rem; border: 1px solid #cbd5e1; border-radius: 4px;">
+        <option value="">All</option>
+        <% @app_versions.each do |version| %>
+          <option value="<%= version %>" <%= "selected" if filters[:app_version] == version %>><%= version %></option>
+        <% end %>
+      </select>
+    </div>
+    <button type="submit"
+            style="padding: 0.5rem 1rem; background: #4f46e5; color: white; border: none; border-radius: 4px; cursor: pointer;">
+      Apply
+    </button>
+    <% if filters[:email].present? || filters[:start_date] || filters[:end_date] || filters[:app_version] %>
+      <a href="<%= admin_api_error_logs_path %>"
+         style="padding: 0.5rem 1rem; color: #4f46e5; text-decoration: none;">Clear</a>
+    <% end %>
+  </form>
+
+  <% if filters[:app_version] %>
+    <div style="margin-bottom: 1.5rem;">
+      <span style="display: inline-flex; align-items: center; gap: 0.5rem; background: #e0f2fe; color: #0369a1; padding: 0.35rem 0.75rem; border-radius: 6px; font-size: 0.875rem; font-weight: 500;">
+        Filtered: <%= filters[:app_version] %>
+        <a href="<%= admin_api_error_logs_path %>" style="color: #0369a1; text-decoration: none; font-weight: bold;" title="Clear filter">&times;</a>
+      </span>
+    </div>
+  <% end %>
+
+  <% unless @chart_data.empty? %>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 2rem; margin-bottom: 2rem;">
+      <% @chart_data.each do |response_code, _dates_counts| %>
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.5rem;">
+          <h2 style="margin-top: 0; font-size: 1.125rem; color: #1e293b;">HTTP <%= response_code %> — Errors per Day</h2>
+          <canvas id="chart-<%= response_code %>"></canvas>
+        </div>
+      <% end %>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 2rem; margin-bottom: 2rem;">
+      <% @chart_data_by_version.each do |response_code, _| %>
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.5rem;">
+          <h2 style="margin-top: 0; font-size: 1.125rem; color: #1e293b;">HTTP <%= response_code %> — Errors per Day by App-Version</h2>
+          <canvas id="version-chart-<%= response_code %>"></canvas>
+        </div>
+      <% end %>
+    </div>
+
+    <script>
+      function loadChartJs(callback) {
+        if (typeof Chart !== "undefined") { callback(); return; }
+        var script = document.createElement("script");
+        script.src = "https://cdn.jsdelivr.net/npm/chart.js";
+        script.onload = callback;
+        document.head.appendChild(script);
+      }
+
+      function renderErrorCharts() {
+        var chartData = <%= raw @chart_data.to_json %>;
+        var colors = { 400: "#f59e0b", 401: "#ef4444", 403: "#dc2626", 404: "#8b5cf6", 422: "#f97316", 500: "#b91c1c", 502: "#991b1b", 503: "#7c2d12" };
+
+        Object.keys(chartData).forEach(function(code) {
+          var dateCounts = chartData[code];
+          var dates = Object.keys(dateCounts).sort();
+          var counts = dates.map(function(d) { return dateCounts[d]; });
+          var color = colors[code] || "#6366f1";
+
+          new Chart(document.getElementById("chart-" + code), {
+            type: "bar",
+            data: {
+              labels: dates,
+              datasets: [{ label: "HTTP " + code, data: counts, backgroundColor: color, borderRadius: 4 }]
+            },
+            options: {
+              responsive: true,
+              plugins: { legend: { display: false } },
+              scales: {
+                x: { title: { display: true, text: "Date" } },
+                y: { title: { display: true, text: "Count" }, beginAtZero: true, ticks: { stepSize: 1 } }
+              }
+            }
+          });
+        });
+
+        var versionChartData = <%= raw @chart_data_by_version.to_json %>;
+        var versionPalette = [
+          "#6366f1", "#22c55e", "#f59e0b", "#ef4444", "#8b5cf6",
+          "#ec4899", "#14b8a6", "#f97316", "#64748b", "#06b6d4"
+        ];
+
+        Object.keys(versionChartData).forEach(function(code) {
+          var dateVersions = versionChartData[code];
+          var dates = Object.keys(dateVersions).sort();
+          var versionsSet = {};
+          dates.forEach(function(d) {
+            Object.keys(dateVersions[d]).forEach(function(v) { versionsSet[v] = true; });
+          });
+          var versions = Object.keys(versionsSet).sort();
+
+          var datasets = versions.map(function(version, i) {
+            return {
+              label: version,
+              data: dates.map(function(d) { return dateVersions[d][version] || 0; }),
+              backgroundColor: versionPalette[i % versionPalette.length],
+              borderRadius: 4
+            };
+          });
+
+          new Chart(document.getElementById("version-chart-" + code), {
+            type: "bar",
+            data: { labels: dates, datasets: datasets },
+            options: {
+              responsive: true,
+              plugins: { legend: { display: true, position: "top" } },
+              scales: {
+                x: { stacked: true, title: { display: true, text: "Date" } },
+                y: { stacked: true, title: { display: true, text: "Count" }, beginAtZero: true, ticks: { stepSize: 1 } }
+              }
+            }
+          });
+        });
+      }
+
+      loadChartJs(renderErrorCharts);
+    </script>
+  <% end %>
+
+  <% if @grouped_logs.empty? %>
+    <p>No non-2xx API request logs found<%= " for app version #{filters[:app_version]}" if filters[:app_version] %>.</p>
+  <% else %>
+    <% @grouped_logs.each do |response_code, logs| %>
+      <details open style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.5rem; margin-bottom: 1rem;">
+        <summary style="cursor: pointer; font-size: 1.125rem; font-weight: bold; color: #1e293b;">
+          HTTP <%= response_code %>
+          <span style="font-weight: normal; color: #64748b; font-size: 0.875rem;">
+            (<%= logs.size %> <%= logs.size == 1 ? "request" : "requests" %>)
+          </span>
+        </summary>
+        <table class="collection-data" style="width: 100%; border-collapse: collapse; margin-top: 1rem;">
+          <thead>
+            <tr>
+              <th style="text-align: left; padding: 0.5rem;">Started at</th>
+              <th style="text-align: left; padding: 0.5rem;">User</th>
+              <th style="text-align: left; padding: 0.5rem;">HTTP method</th>
+              <th style="text-align: left; padding: 0.5rem;">Endpoint</th>
+              <th style="text-align: left; padding: 0.5rem;">Response</th>
+              <th style="text-align: left; padding: 0.5rem;">Detail</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% logs.each do |log| %>
+              <tr>
+                <td style="padding: 0.5rem;"><%= l(log.started_at, format: :long) %></td>
+                <td style="padding: 0.5rem;"><%= log.user&.email || "—" %></td>
+                <td style="padding: 0.5rem;"><%= log.http_method %></td>
+                <td style="padding: 0.5rem;"><%= log.endpoint %></td>
+                <td style="padding: 0.5rem; max-width: 28rem; font-family: monospace; font-size: 0.75rem; white-space: pre-wrap; word-break: break-word; vertical-align: top;"><%= JSON.pretty_generate(log.response) %></td>
+                <td style="padding: 0.5rem;"><%= link_to "View", admin_api_request_log_path(log), class: "navigation__link" %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </details>
+    <% end %>
+  <% end %>
+</section>

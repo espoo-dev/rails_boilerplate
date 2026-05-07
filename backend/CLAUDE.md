@@ -68,6 +68,8 @@ UserContracts::Create.call(permitted_params(:email, :password))
 
 **Packwerk Modular Architecture** - Isolated modules in `packs/` directory (e.g., `demo_pack`, `oauth`). Each pack has its own controllers, actors, specs, and routes module.
 
+**ApiRequestLog Observability** - `ApiRequestLoggerMiddleware` (`app/middleware/`) records every `/api/*` request to the `api_request_logs` table (method, endpoint, headers, payload, response, duration, user). Admin dashboards under `/admin` expose: Daily Overview, Requests Dashboard, Non-2xx API logs, User Analytics, User Lookup, Request logs by payload, plus the raw `ApiRequestLog` Administrate CRUD.
+
 ### Directory Structure
 
 - `app/actors/` - ServiceActor business logic
