@@ -1,0 +1,67 @@
+<% content_for(:title) { "User Analytics" } %>
+
+<header class="main-content__header">
+  <h1 class="main-content__page-title">User Analytics</h1>
+</header>
+
+<section class="main-content__body">
+  <form method="get" action="<%= admin_user_analytics_path %>" style="margin-bottom: 2rem; display: flex; align-items: center; gap: 1rem;">
+    <label for="start_date" style="font-weight: bold;">From:</label>
+    <input type="date" name="start_date" id="start_date" value="<%= @start_date %>" style="padding: 0.5rem;">
+    <label for="end_date" style="font-weight: bold;">To:</label>
+    <input type="date" name="end_date" id="end_date" value="<%= @end_date %>" style="padding: 0.5rem;">
+    <button type="submit" style="padding: 0.5rem 1rem; background: #4f46e5; color: white; border: none; border-radius: 4px; cursor: pointer;">Filter</button>
+  </form>
+
+  <div style="display: flex; gap: 2rem; margin-bottom: 2rem; flex-wrap: wrap;">
+    <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.5rem 2rem; min-width: 200px;">
+      <div style="font-size: 0.875rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.05em;">Total Users</div>
+      <div style="font-size: 2.5rem; font-weight: bold; color: #1e293b;" id="total-users"><%= @total_users %></div>
+    </div>
+  </div>
+
+  <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.5rem; margin-bottom: 2rem;">
+    <h2 style="margin-top: 0; font-size: 1.125rem; color: #1e293b;">Growth per Day</h2>
+    <canvas id="growthChart"></canvas>
+  </div>
+</section>
+
+<script>
+  function loadChartJs(callback) {
+    if (typeof Chart !== "undefined") { callback(); return; }
+    var script = document.createElement("script");
+    script.src = "https://cdn.jsdelivr.net/npm/chart.js";
+    script.onload = callback;
+    document.head.appendChild(script);
+  }
+
+  function renderCharts() {
+    var growthCanvas = document.getElementById("growthChart");
+    if (!growthCanvas) return;
+
+    var labels = <%= raw @chart_data[:date_labels].map(&:to_s).to_json %>;
+    var growthData = <%= raw @chart_data[:date_labels].map { |d| @chart_data[:users_per_day][d] || 0 }.to_json %>;
+
+    new Chart(growthCanvas, {
+      type: "bar",
+      data: {
+        labels: labels,
+        datasets: [{
+          label: "New Users",
+          data: growthData,
+          backgroundColor: "rgba(79, 70, 229, 0.7)",
+          borderColor: "rgba(79, 70, 229, 1)",
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: { beginAtZero: true, ticks: { stepSize: 1 } }
+        }
+      }
+    });
+  }
+
+  loadChartJs(renderCharts);
+</script>

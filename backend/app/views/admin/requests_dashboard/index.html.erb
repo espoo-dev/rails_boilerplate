@@ -1,0 +1,52 @@
+<% content_for(:title) { "Requests Dashboard" } %>
+
+<header class="main-content__header">
+  <h1 class="main-content__page-title">Requests Dashboard by User</h1>
+</header>
+
+<section class="main-content__body">
+  <form method="get" action="<%= admin_requests_dashboard_index_path %>"
+        style="margin-bottom: 2rem; display: flex; flex-wrap: wrap; align-items: center; gap: 1rem;">
+    <div>
+      <label for="email" style="font-weight: bold; margin-right: 0.5rem;">Search by email:</label>
+      <input type="text" name="email" id="email" value="<%= @email_query %>"
+             placeholder="user@example.com"
+             style="padding: 0.5rem; min-width: 260px;">
+      <button type="submit"
+              style="padding: 0.5rem 1rem; background: #4f46e5; color: white; border: none; border-radius: 4px; cursor: pointer;">
+        Search
+      </button>
+    </div>
+    <div>
+      <label for="user_id" style="font-weight: bold; margin-right: 0.5rem;">or pick user:</label>
+      <select name="user_id" id="user_id" onchange="this.form.submit()" style="padding: 0.5rem; min-width: 300px;">
+        <option value="">-- Select a user --</option>
+        <% @users.each do |user| %>
+          <option value="<%= user.id %>" <%= "selected" if @selected_user&.id == user.id && params[:user_id].present? %>>
+            <%= user.email %>
+          </option>
+        <% end %>
+      </select>
+    </div>
+  </form>
+
+  <% if @email_query.present? && @selected_user.nil? %>
+    <p style="color: #b91c1c;">No user matched "<%= @email_query %>".</p>
+  <% end %>
+
+  <% if @selected_user %>
+    <h2 style="margin-top: 2rem;">2xx Requests for <%= @selected_user.email %></h2>
+    <% if @success_requests.any? %>
+      <%= render partial: "request_table", locals: { requests: @success_requests } %>
+    <% else %>
+      <p>No 2xx requests found.</p>
+    <% end %>
+
+    <h2 style="margin-top: 2rem;">Non-2xx Requests for <%= @selected_user.email %></h2>
+    <% if @error_requests.any? %>
+      <%= render partial: "request_table", locals: { requests: @error_requests } %>
+    <% else %>
+      <p>No non-2xx requests found.</p>
+    <% end %>
+  <% end %>
+</section>

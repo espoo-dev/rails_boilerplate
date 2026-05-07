@@ -4,6 +4,17 @@ require "sidekiq/web"
 
 Rails.application.routes.draw do
   namespace :admin do
+    resources :daily_overview, only: [:index]
+    resources :user_lookup, only: [:index]
+    resources :requests_dashboard, only: [:index]
+    resources :user_analytics, only: [:index]
+    resources :api_error_logs, only: [:index]
+    resources :request_logs_by_payload, only: [:index] do
+      collection do
+        get :details
+      end
+    end
+    resources :api_request_logs
     resources :users
 
     root to: "users#index"

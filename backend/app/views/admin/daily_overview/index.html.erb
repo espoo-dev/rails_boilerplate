@@ -1,0 +1,104 @@
+<% content_for(:title) { "Daily Overview" } %>
+
+<header class="main-content__header">
+  <h1 class="main-content__page-title">Daily Overview</h1>
+</header>
+
+<section class="main-content__body">
+  <form method="get" action="<%= admin_daily_overview_index_path %>" style="margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem;">
+    <label for="days" style="font-weight: bold;">Range:</label>
+    <select name="days" id="days" style="padding: 0.5rem;" onchange="this.form.submit()">
+      <% [7, 15, 30, 60, 90, 180].each do |n| %>
+        <option value="<%= n %>" <%= "selected" if n == @days %>>Last <%= n %> days</option>
+      <% end %>
+    </select>
+  </form>
+
+  <% palette = %w[#4f46e5 #10b981 #f472b6 #eab308 #3b82f6 #ef4444] %>
+  <% @datasets.each_with_index do |dataset, idx| %>
+    <% color = palette[idx % palette.size] %>
+    <% total = dataset[:data].sum %>
+    <div style="display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 1.5rem; margin-bottom: 1.5rem; align-items: stretch;">
+      <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.25rem;">
+        <h2 style="margin-top: 0; font-size: 1rem; color: #1e293b;"><%= dataset[:label] %> — last <%= @days %> days</h2>
+        <canvas id="chart-<%= dataset[:slug] %>" style="max-height: 280px;"></canvas>
+      </div>
+      <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.25rem; overflow-y: auto; max-height: 360px;">
+        <h3 style="margin-top: 0; font-size: 0.95rem; color: #1e293b;">Daily counts</h3>
+        <table style="width: 100%; border-collapse: collapse; font-size: 0.875rem;">
+          <thead>
+            <tr style="border-bottom: 2px solid #e2e8f0; position: sticky; top: 0; background: #f8fafc;">
+              <th style="text-align: left; padding: 0.4rem; color: #64748b;">Date</th>
+              <th style="text-align: right; padding: 0.4rem; color: #64748b;">Count</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @labels.zip(dataset[:data]).each do |label, count| %>
+              <tr style="border-bottom: 1px solid #e2e8f0;">
+                <td style="padding: 0.35rem 0.4rem;"><%= label %></td>
+                <td style="padding: 0.35rem 0.4rem; text-align: right;"><%= count %></td>
+              </tr>
+            <% end %>
+            <tr style="border-top: 2px solid #e2e8f0;">
+              <td style="padding: 0.4rem; font-weight: bold;">Total</td>
+              <td style="padding: 0.4rem; text-align: right; font-weight: bold;"><%= total %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  <% end %>
+</section>
+
+<script>
+  function loadChartJs(callback) {
+    if (typeof Chart !== "undefined") { callback(); return; }
+    var script = document.createElement("script");
+    script.src = "https://cdn.jsdelivr.net/npm/chart.js";
+    script.onload = callback;
+    document.head.appendChild(script);
+  }
+
+  function renderDailyOverviewCharts() {
+    var labels = <%= raw @labels.to_json %>;
+    var datasets = <%= raw @datasets.to_json %>;
+    var palette = [
+      "rgba(79, 70, 229, 0.75)",
+      "rgba(16, 185, 129, 0.75)",
+      "rgba(244, 114, 182, 0.75)",
+      "rgba(234, 179, 8, 0.75)",
+      "rgba(59, 130, 246, 0.75)",
+      "rgba(239, 68, 68, 0.75)"
+    ];
+
+    datasets.forEach(function(ds, idx) {
+      var canvas = document.getElementById("chart-" + ds.slug);
+      if (!canvas) return;
+      var color = palette[idx % palette.length];
+      new Chart(canvas, {
+        type: "bar",
+        data: {
+          labels: labels,
+          datasets: [{
+            label: ds.label,
+            data: ds.data,
+            backgroundColor: color,
+            borderColor: color.replace("0.75", "1"),
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: true,
+          plugins: { legend: { display: false } },
+          scales: {
+            x: { ticks: { maxRotation: 45, minRotation: 0, autoSkip: true, maxTicksLimit: 20 } },
+            y: { beginAtZero: true, ticks: { stepSize: 1 } }
+          }
+        }
+      });
+    });
+  }
+
+  loadChartJs(renderDailyOverviewCharts);
+</script>

@@ -1,0 +1,50 @@
+<% content_for(:title) { "Request log details" } %>
+
+<header class="main-content__header">
+  <h1 class="main-content__page-title">Request log details</h1>
+  <p style="color: #64748b; margin-top: 0.25rem;"><%= @filter_description %></p>
+  <a href="<%= admin_request_logs_by_payload_index_path(group_by: params[:group_by], date: params[:date]) %>" style="color: #2563eb; text-decoration: none; font-size: 0.875rem;">&larr; Back to grouped view</a>
+</header>
+
+<section class="main-content__body">
+  <% if @logs.empty? %>
+    <p>No matching logs found.</p>
+  <% else %>
+    <p style="color: #64748b; font-size: 0.875rem; margin-bottom: 1rem;">Showing <%= @logs.size %> log<%= @logs.size == 1 ? "" : "s" %> (max 200)</p>
+
+    <table class="collection-data" style="width: 100%; border-collapse: collapse;">
+      <thead>
+        <tr>
+          <th style="text-align: left; padding: 0.5rem;">Started at</th>
+          <th style="text-align: left; padding: 0.5rem;">User</th>
+          <th style="text-align: left; padding: 0.5rem;">Method</th>
+          <th style="text-align: left; padding: 0.5rem;">Endpoint</th>
+          <th style="text-align: center; padding: 0.5rem;">Response Code</th>
+          <th style="text-align: left; padding: 0.5rem;">App-Version</th>
+          <th style="text-align: left; padding: 0.5rem;">Payload</th>
+          <th style="text-align: left; padding: 0.5rem;">Response</th>
+          <th style="text-align: left; padding: 0.5rem;">Detail</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @logs.each do |log| %>
+          <tr>
+            <td style="padding: 0.5rem; white-space: nowrap;"><%= log.started_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
+            <td style="padding: 0.5rem;"><%= log.user&.email || "anonymous" %></td>
+            <td style="padding: 0.5rem;"><%= log.http_method %></td>
+            <td style="padding: 0.5rem;"><%= log.endpoint %></td>
+            <td style="padding: 0.5rem; text-align: center;">
+              <span style="display: inline-block; padding: 0.15rem 0.5rem; border-radius: 4px; font-size: 0.8rem; font-weight: 600; background: <%= log.response_code >= 500 ? '#fef2f2; color: #991b1b' : '#fef9c3; color: #854d0e' %>;">
+                <%= log.response_code %>
+              </span>
+            </td>
+            <td style="padding: 0.5rem;"><%= log.headers&.dig("App-Version") || "unknown" %></td>
+            <td style="padding: 0.5rem; max-width: 20rem; font-family: monospace; font-size: 0.7rem; white-space: pre-wrap; word-break: break-word; vertical-align: top;"><%= JSON.pretty_generate(log.payload) rescue log.payload %></td>
+            <td style="padding: 0.5rem; max-width: 20rem; font-family: monospace; font-size: 0.7rem; white-space: pre-wrap; word-break: break-word; vertical-align: top;"><%= JSON.pretty_generate(log.response) rescue log.response %></td>
+            <td style="padding: 0.5rem;"><%= link_to "View", admin_api_request_log_path(log), class: "navigation__link" %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
+</section>
