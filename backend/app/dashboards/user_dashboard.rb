@@ -10,7 +10,7 @@ class UserDashboard < Administrate::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
-    id: Field::Number,
+    id: Field::String,
     admin: Field::Boolean,
     email: Field::String,
     password: Field::String,
