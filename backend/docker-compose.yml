@@ -39,6 +39,10 @@ services:
     healthcheck:
       test: pg_isready -U postgres -h 127.0.0.1
       interval: 5s
+    networks:
+      default:
+        aliases:
+          - database
   elasticsearch:
     image: elasticsearch:8.10.2
     environment:
